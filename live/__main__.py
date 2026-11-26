@@ -10,6 +10,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal as D
 from pathlib import Path
+from statistics import median
 from typing import Callable, Iterable
 
 from spot_data import get_json
@@ -18,6 +19,7 @@ from .executor import Filters
 from .notify import Notifier, publish_heartbeat
 from .report import export_csv, healthy, performance, read
 from .state import State
+from .timemachine import HISTORY_HOURS, diagnose
 from .strategy import DailySwing, DemoPullback, Observe, Strategy
 from .stream import Book, History, SYMBOL, URL, events, stamp
 
@@ -40,7 +42,8 @@ def filters() -> Filters:
 
 def run(feed: Iterable[Book | History], executor: ExecutionAdapter, strategy: Strategy,
         notifier: Notifier, max_books: int = 0, *, clock: Callable[[], float] = time.time,
-        on_equity: Callable[[D], None] | None = None) -> int:
+        on_equity: Callable[[D], None] | None = None,
+        risk_overlay: bool = False, mc_seed: int = 42, mc_paths: bool = True) -> int:
     closed = None
     trail = None
     update_id = -1
@@ -85,7 +88,20 @@ def run(feed: Iterable[Book | History], executor: ExecutionAdapter, strategy: St
                 intent = strategy.on_close(closed,event)
                 if not isinstance(strategy, DailySwing):
                     last_signal = {"time": closed[-1].time.isoformat(), "entry": intent is not None}
-                signal = executor.submit(opened,intent,event,now)
+                context = None
+                if risk_overlay and intent and isinstance(strategy, DailySwing) and strategy.kind == "ema-1d":
+                    ranges = [c.high-c.low for c in closed[-21:]]
+                    typical = median(ranges[:-1]) if len(ranges) == 21 else D(0)
+                    reference = intent.target or intent.limit+2*(intent.limit-intent.stop)
+                    context = {
+                        "shock": ranges[-1]/typical if typical > 0 else None,
+                        "timemachine": diagnose(closed,float(intent.limit),float(intent.stop),
+                                                 float(reference),seed=mc_seed)
+                                       if mc_paths and 0 < intent.stop < intent.limit < reference
+                                       else {"status":"not_evaluated"},
+                    }
+                signal = (executor.submit(opened,intent,event,now,context=context) if context is not None
+                          else executor.submit(opened,intent,event,now))
                 if signal:
                     notifier.publish(signal)
             closed = None
@@ -121,6 +137,7 @@ def main() -> None:
     options.add_argument("--report", action="store_true", help="Print paper ledger performance as JSON")
     options.add_argument("--healthcheck", action="store_true", help="Check the SQLite ledger and recent market activity")
     cli.add_argument("--export-csv", type=Path, help="Export ledger events to a new CSV file (requires --report)")
+    cli.add_argument("--mc-seed", type=int, default=42)
     args = cli.parse_args()
     if args.export_csv and not args.report:
         cli.error("--export-csv requires --report")
@@ -151,9 +168,9 @@ def main() -> None:
     demos = {"observe": Observe, "demo-pullback": DemoPullback}
     strategy = demos[args.strategy]() if args.strategy in demos else DailySwing(args.strategy)
     feed = events(PUBLIC_FALLBACK if args.public_stream else URL, notifier.publish,
-                  getattr(strategy,"warmup_hours",250))
+                  HISTORY_HOURS+1 if args.strategy == "ema-1d" else getattr(strategy,"warmup_hours",250))
     try:
-        run(feed,executor,strategy,notifier,args.max_books)
+        run(feed,executor,strategy,notifier,args.max_books,risk_overlay=True,mc_seed=args.mc_seed)
     except KeyboardInterrupt:
         logging.info("Paper engine stopped")
     finally:

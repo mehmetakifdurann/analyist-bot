@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from decimal import ROUND_UP, Decimal as D
 
-from .risk import update
+from .risk import RISK_PER_TRADE_PCT, evaluate_order, update
 from .state import State
 from .strategy import Intent
 from spot_data import Candle
@@ -31,12 +31,12 @@ class PaperExecutionAdapter:
         self.position_cap = position_cap
         self.state, self.filters, self.daily_loss = state, filters, daily_loss
 
-    def submit(self, candle: int, intent: Intent | None, book: Book, now: int) -> dict | None:
+    def submit(self, candle: int, intent: Intent | None, book: Book, now: int, *, context: dict | None = None) -> dict | None:
         with self.state.transaction() as w:
             if candle <= w["candle"]:
                 return None
             w["candle"] = candle
-            if not intent or w["pending"] or w["position"] or w["locked"]:
+            if not intent or (context is None and (w["pending"] or w["position"] or w["locked"])):
                 return None
             if (not all(p.is_finite() and p > 0 for p in (intent.stop,intent.limit))
                     or (intent.target is not None and (not intent.target.is_finite() or intent.target <= 0))
@@ -50,14 +50,42 @@ class PaperExecutionAdapter:
                 return None
             budget = D(w["cash"])*self.position_cap
             units = budget/(limit*(1+MAKER))//self.filters.step*self.filters.step
-            if units < self.filters.minimum or units*stop < self.filters.notional:
+            ticket = None
+            if context is not None:
+                paid = limit*(1+MAKER)
+                stop_net = stop*(1-TAKER)*(1-SLIP)
+                # A diagnostic 2R level for trailing-only strategies; never a sell instruction.
+                reference = target if target is not None else limit+2*(limit-stop)
+                equity = D(w.get("last_equity",w["cash"]))
+                units = min(units,equity*RISK_PER_TRADE_PCT/(paid-stop_net))
+                units = units//self.filters.step*self.filters.step
+                verdict, details = evaluate_order(
+                    cash=D(w["cash"]),equity=equity,units=units,paid=paid,
+                    stop_net=stop_net,target_net=reference*(1-MAKER),locked=w["locked"],
+                    spread_bps=(book.ask-book.bid)*20000/(book.ask+book.bid),
+                    shock_ratio=context["shock"],position_cap=self.position_cap,
+                    minimum=self.filters.minimum,min_notional=self.filters.notional,limit=limit)
+                if w["pending"] or w["position"]:
+                    verdict = "BLOCK: existing_order_or_position"
+                if units*stop < self.filters.notional and verdict == "PASS":
+                    verdict = "BLOCK: exit_minimum_notional"
+                ticket = dict(id=f"PAXGUSDT:{candle}",kind="trade_ticket",time=now,
+                              limit=str(limit),stop=str(stop),target=str(reference),
+                              target_is_diagnostic=target is None,units=str(units),
+                              risk_check=verdict,timemachine=context["timemachine"],**details)
+                self.state.event(ticket["id"]+":ticket","trade_ticket",ticket)
+                if verdict != "PASS":
+                    return ticket
+            elif units < self.filters.minimum or units*stop < self.filters.notional:
                 return None
             p = dict(id=f"PAXGUSDT:{candle}", units=str(units), limit=str(limit),
                      stop=str(stop), target=str(target) if target is not None else None, expires=now+intent.ttl_seconds)
             p.update(time=now, signal_bid=str(book.bid))
+            if ticket is not None:
+                p["ticket"] = ticket
             w["pending"] = p
             self.state.event(p["id"],"submitted",p)
-            return {**p, "kind": "signal"}
+            return ticket if ticket is not None else {**p, "kind": "signal"}
 
     on_close = submit  # Compatibility for existing paper callers.
 
@@ -105,6 +133,28 @@ class PaperExecutionAdapter:
             pos["peak"] = str(peak)
             pos["stop"] = str(max(D(pos["stop"]),stop))
 
+    def _exit(self, wallet: dict, position: dict, price: D, reason: str, now: int) -> dict:
+        units = D(position["units"])
+        proceeds = units*price
+        pnl = proceeds-D(position["cost"])
+        wallet["cash"] = str(D(wallet["cash"])+proceeds)
+        wallet["realized"] = str(D(wallet["realized"])+pnl)
+        wallet["position"] = None
+        detail = {"id":position["id"],"kind":reason,"pnl":str(pnl),"time":now,
+                  "units":str(units),"exit_price_net":str(price)}
+        self.state.event(position["id"]+":exit",reason,detail)
+        return detail
+
+    def close_replay(self, book: Book, now: int) -> dict | None:
+        """Liquidate in a bounded historical test using the last synthetic bid."""
+        with self.state.transaction() as wallet:
+            position = wallet["position"]
+            if position is None or book.bid_qty < D(position["units"]):
+                return None
+            event = self._exit(wallet, position, book.bid*(1-TAKER)*(1-SLIP), "replay_end", now)
+            wallet["last_equity"] = wallet["cash"]
+            return event
+
     def on_book(self, book: Book, now: int) -> tuple[D, D, list[dict]]:
         recorded = []
         with self.state.transaction() as w:
@@ -130,6 +180,8 @@ class PaperExecutionAdapter:
                               "units": str(units), "fill_price": str(limit),
                               "trigger_ask": str(book.ask), "trigger_bid": str(book.bid),
                               "signal_bid": pending.get("signal_bid")}
+                    if "ticket" in pending:
+                        detail["ticket"] = pending["ticket"]
                     self.state.event(pending["id"]+":filled","filled",detail)
                     recorded.append(detail)
                     w["pending"] = None
@@ -141,15 +193,7 @@ class PaperExecutionAdapter:
                           else "target" if target is not None and book.bid > target*(1+PENETRATION) else None)
                 if reason and book.bid_qty >= units:
                     price = target*(1-MAKER) if reason == "target" else taker
-                    proceeds = units*price
-                    pnl = proceeds-D(pos["cost"])
-                    w["cash"] = str(D(w["cash"])+proceeds)
-                    w["realized"] = str(D(w["realized"])+pnl)
-                    w["position"] = None
-                    detail = {"id":pos["id"],"kind":reason,"pnl":str(pnl),"time":now,
-                              "units":str(units),"exit_price_net":str(price)}
-                    self.state.event(pos["id"]+":exit",reason,detail)
-                    recorded.append(detail)
+                    recorded.append(self._exit(w, pos, price, reason, now))
             pos = w["position"]
             equity = D(w["cash"])+(D(pos["units"])*taker if pos else 0)
             update(w,day,equity,self.daily_loss)

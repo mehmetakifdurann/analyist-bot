@@ -21,7 +21,8 @@ END = datetime(2026, 11, 26, tzinfo=timezone.utc)
 
 
 def parity(bars: list[Bar], name: str, high_first: bool = False, *,
-           ttl_seconds: int = 3600, position_cap: D = D(".25")) -> dict:
+           ttl_seconds: int = 3600, position_cap: D = D(".25"),
+           risk_overlay: bool = False) -> dict:
     strategy = DailySwing(name, ttl_seconds=ttl_seconds)
     state = State(Path(":memory:"), "10000")
     # Fixed PAXG filter snapshot. Historical filters and book quantities are unavailable.
@@ -58,9 +59,11 @@ def parity(bars: list[Bar], name: str, high_first: bool = False, *,
             previous = bar.time
 
     try:
-        run(feed(), executor, strategy, Notifier(None), clock=lambda: now, on_equity=marks.append)
+        run(feed(), executor, strategy, Notifier(None), clock=lambda: now, on_equity=marks.append,
+            risk_overlay=risk_overlay, mc_paths=False)
         ending = marks[-1]
         rows = state.db.execute("SELECT kind,body FROM events").fetchall()
+        tickets = [json.loads(body) for kind,body in rows if kind=="trade_ticket"]
         pnl = [float(json.loads(body)["pnl"]) for kind,body in rows if kind in ("stop","target")]
         peak = D("10000")
         drawdown = D(0)
@@ -75,7 +78,9 @@ def parity(bars: list[Bar], name: str, high_first: bool = False, *,
                     "filled":sum(kind=="filled" for kind,_ in rows),
                     "canceled":sum(kind=="canceled" for kind,_ in rows),
                     "end_equity_usdt":float(ending), "end_cash_usdt":float(wallet["cash"]),
-                    "end_position_open":bool(wallet["position"]), "data_gaps":gaps}
+                    "end_position_open":bool(wallet["position"]), "data_gaps":gaps,
+                    **({"tickets_passed":sum(t["risk_check"]=="PASS" for t in tickets),
+                        "tickets_blocked":sum(t["risk_check"]!="PASS" for t in tickets)} if risk_overlay else {})}
     finally:
         state.db.close()
 

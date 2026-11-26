@@ -131,9 +131,16 @@ if __name__ == "__main__":
     p.add_argument("csv",type=Path)
     mode = p.add_mutually_exclusive_group()
     mode.add_argument("--ema-sensitivity", action="store_true", help="Compare EMA paper TTL and size settings")
+    mode.add_argument("--risk-parity", action="store_true", help="Replay EMA with paper risk controls")
     mode.add_argument("--paper-parity", action="store_true", help="Replay the live paper engine on synthetic historical books")
     args = p.parse_args()
-    if args.ema_sensitivity:
+    if args.risk_parity:
+        from paper_parity import parity
+        candles = read(args.csv)
+        report = {path: parity(candles,"ema-1d",path=="high_first",
+                               ttl_seconds=14400,risk_overlay=True)
+                  for path in ("low_first","high_first")}
+    elif args.ema_sensitivity:
         from paper_parity import ema_sensitivity
         report = ema_sensitivity(read(args.csv))
     elif args.paper_parity:

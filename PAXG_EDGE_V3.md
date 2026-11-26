@@ -63,3 +63,24 @@ Aynı tarih aralığı, sentetik kotasyonlar, fiyat sıraları ve %1 UTC giriş 
 Bir saat ve %25 referans ayarı önceki EMA paritesinin tüm metriklerini birebir üretti. Dört saat ve %25 iki fiyat sırasında da PF'yi iyileştirdi ve azami düşüşü değiştirmedi. Dolu emir sayısı 50 kaldı. Oranın yükselmesi, daha az emir verilmesinden kaynaklandı. %50 pozisyon tavanı iki fiyat sırasında da azami düşüşü artırdı. EMA 1D paper varsayılanı dört saat ve %25 olarak ayarlandı. Bu seçim aynı tarihsel arşivdeki duyarlılık deneyine dayanır.
 
 [Sekiz koşunun ayrıntıları](paper_runs/paxg-ema-sensitivity.json)
+
+## EMA 1D risk kapısı ve TimeMachine
+
+Aynı arşiv ve 4 saat TTL / %25 tavan ile paper yürütücüsünün önceki sonuçları ve %0,5 risk bütçeli yeni yürütme karşılaştırıldı. Günlük %1 giriş kilidi korundu. Kapanmış işlemler ve açık bakiye önceki pariteyle aynı yöntemle ölçüldü.
+
+| Mum içi sıra | Ayar | Dolan / verilen | Net getiri | PF | Azami düşüş |
+|---|---|---:|---:|---:|---:|
+| Dip önce | Önceki | 50 / 52 | +%8,71 | 1,377 | %10,00 |
+| Dip önce | Risk bazlı + kapı | 50 / 52 | +%4,37 | 1,538 | %3,22 |
+| Tepe önce | Önceki | 50 / 52 | +%13,57 | 1,570 | %9,01 |
+| Tepe önce | Risk bazlı + kapı | 50 / 52 | +%5,81 | 1,709 | %2,98 |
+
+Her yeni koşuda 52 fiş geçti, 688 fiş engellendi. Engellenen fişler açık pozisyon veya bekleyen emir bulunan sinyalleri de içerir. Parite sentetik iki baz puan spread kullanır. Geniş gerçek spread etkisi bu sonuçtan çıkarılamaz. Boyutlandırma alış maliyeti ile ücret ve kayma sonrası stop değerinin farkını kullanır. Fiyat sıçraması ve emir defteri likiditesi planlanan %0,5 riskin aşılmasına yol açabilir. Volatilite kontrolü son kapanmış 1H mumun yüksek-düşük farkını önceki 20 mumun medyanı ile karşılaştırır.
+
+TimeMachine, kesintisiz son 180 günün 4.320 saatlik kapanış getirisinden geri koymalı örneklem alır. Varsayılan seed 42 ile 10.000 yol ve 168 saatlik gözlem ufku kullanır. Açık kalan yolun son fiyatı brüt beklenen R hesabına girer. Net R/R kapısı işlem ücretlerini kullanır. EMA için kâr seviyesi 2R referanstır. Gerçek paper çıkışı ATR stopuyla yönetilmeye devam eder. Monte Carlo yolunda stop ve hedef yalnızca saat sonu gözlemlerinde kontrol edilir. Bağımsız örnekleme, volatilite kümelenmesini ve saat içi fiyat sırasını modellemez. Etiket tahminin işareti ve ±0,1 R bandıyla belirlenir. Bu tanımlayıcı etiket emir kapısına bağlanmaz. [Bootstrap yöntemi](https://www.itl.nist.gov/div898/handbook/eda/section3/bootplot.htm)
+
+```sh
+python3 paxg_edge_v3.py data/training/PAXGUSDT_1h.csv --risk-parity
+```
+
+[Parite metrikleri](paper_runs/paxg-risk-parity.json)

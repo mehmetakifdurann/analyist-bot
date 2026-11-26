@@ -119,3 +119,7 @@ Rapor SQLite'ı salt okunur açar ve ağ bağlantısı gerektirmez. Emir sayıla
 JSON webhook için `PAPER_WEBHOOK_URL`, Türkçe Telegram mesajları için `TELEGRAM_BOT_TOKEN` ve `TELEGRAM_CHAT_ID` ayarlanabilir. Telegram iki değer de doluyken etkinleşir. İşlem sinyali, sanal dolum, çıkış, günlük giriş kilidi ve günlük durum özeti gönderim kuyruğuna alınır. Ağ hatası motoru bekletmez. Kuyruk dolduğunda veya gönderim başarısız olduğunda mesaj düşebilir. [Telegram Bot API](https://core.telegram.org/bots/api#sendmessage)
 
 Compose, her biri en fazla 10 MB olan üç log dosyası tutar. Sağlık kontrolü SQLite'ın okunabildiğini ve son 180 saniyede kotasyon işlendiğini denetler. `unhealthy` durumu izleme içindir; Compose'un yeniden başlatma politikası süreç çıkışına uygulanır. WebSocket yaklaşık 23 saat 55 dakikada yenilenir. Bağlantı kurulduğunda eksik mumlar tamamlanır ve geçmiş kapanışlardan yeni emir açılmaz. [Binance Spot WebSocket belgeleri](https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams)
+
+### EMA 1D paper risk kapısı
+
+EMA paper sinyalleri %0,5 planlı risk, %25 pozisyon tavanı, %1 günlük giriş kilidi ve yedi kontrolle değerlendirilir. Açılışta Monte Carlo için 4.321 kapanmış saatlik mum istenir. `--mc-seed` varsayılanı 42. 180 günlük geçmiş kesintiliyse fiş Monte Carlo eksikliğini raporlar. Fişler ve dolumlar SQLite olay defterine yazılır ve yapılandırılmış bildirimlere gider. EMA kâr referansı bir satış emri oluşturmaz. [Yöntem ve parite](PAXG_EDGE_V3.md#ema-1d-risk-kapısı-ve-timemachine)

@@ -19,6 +19,16 @@ class NoRedirect(HTTPRedirectHandler):
 def message(data: dict) -> str | None:
     kind = data["kind"]
     prefix = "PAXG paper"
+    if kind == "trade_ticket" or (kind == "filled" and "ticket" in data):
+        ticket = data.get("ticket",data)
+        mc = ticket["timemachine"]
+        model = (f'hedef olasılığı %{mc["p_target_pct"]:.1f}, beklenen R {mc["expected_r"]:+.2f}'
+                 if "p_target_pct" in mc else "Monte Carlo verisi yok")
+        fill = f' · dolum {data["fill_price"]}' if kind == "filled" else ""
+        label = "referans hedef" if ticket["target_is_diagnostic"] else "hedef"
+        return (f'{prefix} · {ticket["risk_check"]}{fill} · Limit {ticket["limit"]}, stop {ticket["stop"]}, '
+                f'{label} {ticket["target"]} USDT · risk {float(ticket["risk_usdt"]):.2f} USDT, '
+                f'R/R {float(ticket["rr"]):.2f} · {model}.')
     if kind == "signal":
         return f'{prefix} · Alış sinyali: limit {data["limit"]} USDT, stop {data["stop"]}.'
     if kind == "filled":

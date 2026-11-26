@@ -321,3 +321,38 @@ class ObservabilityTests(unittest.TestCase):
             self.assertEqual(stamp(realtime.candles[-1]),5*H)
             self.assertEqual(next(gen).update,10)
             gen.close()
+
+
+class RiskTicketTests(unittest.TestCase):
+    def test_bootstrap_deterministic_and_exhaustive(self):
+        from live.timemachine import simulate
+        args = ([-.02, .03, 0.],100.,95.,110.)
+        first = simulate(*args,seed=81,paths=250,hours=12)
+        self.assertEqual(first,simulate(*args,seed=81,paths=250,hours=12))
+        self.assertAlmostEqual(sum(first[k] for k in ("p_target_pct","p_stop_pct","p_open_pct")),100)
+        self.assertEqual(simulate([0],100,95,110,paths=2)["p_open_pct"],100)
+
+    def test_risk_ticket_size_and_quote_guards(self):
+        from live.notify import message
+        state = State(Path(":memory:"),"10000")
+        self.addCleanup(state.db.close)
+        executor = PaperExecutor(state,Filters(D(".001"),D(".001"),D(5),D(".01")))
+        book = Book(1,D(100),D("100.01"),D(1000),D(1000))
+        wide = Book(2,D(100),D(101),D(1000),D(1000))
+        now = 1_800_000_000
+        executor.on_book(book,now)
+        intent = Intent(D(100),D(90),None,14400)
+        mc = dict(p_target_pct=25,expected_r=.1)
+        for candle,b,shock,expected in ((1,wide,D(1),"BLOCK: spread"),
+                                        (2,book,D(4),"BLOCK: volatility"),
+                                        (3,book,D(1),"PASS")):
+            ticket = executor.submit(candle,intent,b,now,context=dict(shock=shock,timemachine=mc))
+            self.assertEqual(ticket["risk_check"],expected)
+            self.assertIn(expected,message(ticket))
+        self.assertLess(D(ticket["units"]),D(5))
+        self.assertLessEqual(D(ticket["risk_usdt"]),D(50))
+        self.assertTrue(ticket["target_is_diagnostic"])
+        self.assertIsNone(executor.balance()["pending"]["target"])
+        changes = executor.on_book(Book(3,D(99),D("99.01"),D(1000),D(1000)),now+1)[2]
+        self.assertEqual(changes[0]["ticket"],ticket)
+        self.assertIn("dolum",message(changes[0]))
