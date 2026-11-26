@@ -11,3 +11,12 @@ python3 -m unittest -v
 ```
 
 The bundled report evaluates execution assumptions, trend and session filters, exits, risk controls and walk-forward validation. The active configurations did not establish a profitable edge. See the [research report](PAXG_RESEARCH.md) and [derived metrics](paper_runs/paxg-research.json). Raw Binance data is downloaded separately.
+
+## Two-year pullback and mean-reversion study
+
+```sh
+python3 archive_data.py PAXGUSDT --end 2026-11-25
+python3 paxg_edge.py data/training/PAXGUSDT_1h.csv > result.json
+```
+
+The [study report](PAXG_EDGE.md) and [walk-forward metrics](paper_runs/paxg-edge.json) cover passive entry simulation, order expiry, and cost stress. All configurations failed the online eligibility criteria.
