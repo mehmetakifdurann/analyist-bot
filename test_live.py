@@ -149,3 +149,48 @@ class DailySwingTests(unittest.TestCase):
             with state.transaction() as w:
                 self.assertEqual(D(w["position"]["stop"]),D(102))
             state.db.close()
+
+
+class PaperParityRegressionTests(unittest.TestCase):
+    def test_daily_entry_lock_preserves_open_swing_until_its_stop(self):
+        with tempfile.TemporaryDirectory() as root:
+            path = Path(root)/"test.sqlite3"
+            state = State(path,"10000")
+            engine = PaperExecutor(state,Filters(D(".001"),D(".001"),D("5"),D(".01")))
+            now = 1_800_000_000
+            engine.on_book(Book(1,D(100),D(101),D(100),D(100)),now)
+            engine.on_close(123,Intent(D(99),D(90),None),
+                            Book(1,D(100),D(101),D(100),D(100)),now)
+            engine.on_book(Book(2,D(98),D("98.5"),D(100),D(100)),now+1)
+            _, _, events = engine.on_book(Book(3,D(94),D(95),D(100),D(100)),now+2)
+            self.assertEqual(events, [])
+            with state.transaction() as wallet:
+                self.assertTrue(wallet["locked"])
+                self.assertIsNotNone(wallet["position"])
+            _, _, events = engine.on_book(Book(4,D(89),D(90),D(100),D(100)),now+3)
+            self.assertEqual(events[0]["kind"], "stop")
+            state.db.close()
+
+    def test_heartbeat_after_0005_once_across_restart(self):
+        from datetime import datetime, timezone
+        from live.notify import heartbeat
+        t = int(datetime(2026,11,26,tzinfo=timezone.utc).timestamp())
+        with tempfile.TemporaryDirectory() as root:
+            path = Path(root)/"beat.sqlite3"
+            state = State(path,"10000")
+            engine = PaperExecutor(state,Filters(D(".001"),D(".001"),D("5"),D(".01")))
+            book = Book(1,D(100),D(101),D(100),D(100))
+            engine.on_book(book,t)
+            notifier = Mock()
+            heartbeat(state,notifier,t+299,None)
+            notifier.publish.assert_not_called()
+            heartbeat(state,notifier,t+300,{"entry":True})
+            state.db.close()
+            state = State(path,"1")
+            heartbeat(state,notifier,t+370,None)
+            notifier.publish.assert_called_once()
+            payload = notifier.publish.call_args.args[0]
+            self.assertEqual(payload["equity_usdt"],"10000")
+            self.assertEqual(payload["last_closed_signal"],{"entry":True})
+            self.assertEqual(state.db.execute("SELECT COUNT(*) FROM events").fetchone()[0],1)
+            state.db.close()

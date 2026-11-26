@@ -46,9 +46,9 @@ python3 -m live --mode paper --max-books 3 --db smoke.sqlite3
 
 `live/executor.py`, yeni kotasyonda fiyat limitin ötesine geçtiğinde ve görünen miktar yeterliyse sanal dolum yazar. Limit, stop ve hedef ilişkisi ile miktar adımı denetlenir. Kotasyonlar arasındaki emir kuyruğu bilinmez. Kesinti sırasında varsayımsal gerçekleşme üretilmez, stop ve hedef ilk yeni kotasyonda tekrar değerlendirilir. Eski mumlardan yeni giriş başlatılmaz.
 
-`live/state.py` SQLite içinde sanal nakit, açık pozisyon, bekleyen emir, kapanış başına tek emir kimliği ve gerçekleşen PnL saklar. `live/risk.py` UTC günündeki %1 özsermaye kaybında yeni girişleri durdurur ve yeterli görüntülenen miktar geldiğinde açık sanal pozisyonu kapatmaya çalışır. Fiyat boşluğu veya yetersiz miktar yüzünden kayıp eşiği aşılabilir. Her sanal defter için tek süreç kullan. Aynı dosyayla tekrar başlatınca önceki bakiye kullanılır.
+`live/state.py` SQLite içinde sanal nakit, açık pozisyon, bekleyen emir, kapanış başına tek emir kimliği ve gerçekleşen PnL saklar. `live/risk.py` UTC günündeki %1 özsermaye kaybında yeni girişleri kilitler ve bekleyen giriş emrini iptal eder. Açık pozisyon kendi stop veya hedefiyle yönetilir. Fiyat boşluğu veya yetersiz miktar yüzünden kayıp eşiği aşılabilir. Her sanal defter için tek süreç kullan. Aynı dosyayla tekrar başlatınca önceki bakiye kullanılır.
 
-İsteğe bağlı ayarlar `.env.example` dosyasındadır. `PAPER_WEBHOOK_URL` bir HTTPS alıcısına sanal dolum, çıkış, bağlantı hatası ve UTC gün özeti gönderir. 7/24 çalışması için komutun açık bir makinede sürmesi gerekir.
+İsteğe bağlı ayarlar `.env.example` dosyasındadır. `PAPER_WEBHOOK_URL` bir HTTPS alıcısına sanal dolum, çıkış, bağlantı hatası ve günlük durum bildirimi gönderir. 7/24 çalışması için komutun açık bir makinede sürmesi gerekir.
 
 `--mode live` gerçek Binance hesabına bağlanan bir mod değildir ve açıklayıcı bir hata ile kapanır. Desteklenen mod `paper`dır ve halka açık veri için Binance anahtarı gerekmez.
 
@@ -73,3 +73,23 @@ docker logs -f paxg-paper
 ```
 
 Docker ve yeniden başlatma kuralı açık makinede paper sürecini çalıştırır. `--mode testnet` ve `--mode live` hesap bağlantısı açmadan hata verir. Bu dağıtım halka açık Binance Spot verisini okur ve yerel paper emirleri simüle eder. [V3 araştırma raporu](PAXG_EDGE_V3.md)
+
+
+### Paper paritesi ve Compose
+
+```sh
+python3 paxg_edge_v3.py data/training/PAXGUSDT_1h.csv --paper-parity > paper_runs/paxg-paper-parity.json
+python3 -m live --mode paper --strategy ema-1d --db ema.sqlite3
+```
+
+Günlük kayıp kilidi bekleyen girişleri iptal eder. Açık pozisyonun ATR stopu veya kâr hedefi işlemeye devam eder. UTC gün değişiminde önceki son özsermaye yeni günün referansıdır. Parite denemesi online paper kodunu sentetik kotasyonla çalıştırır ve iki farklı mum içi fiyat sırasını raporlar. [Sonuçlar](PAXG_EDGE_V3.md#online-paper-paritesi)
+
+```sh
+cp .env.example .env  # yalnızca ilk kurulumda
+docker compose up -d --build
+docker compose logs -f paper
+```
+
+Compose 2.24+ gerekir. `PAPER_STRATEGY` varsayılanı `keltner-1d`; `ema-1d`, `donchian-1d` ve `observe` seçenekleri de var. `/state` adlandırılmış volume'da kalıcıdır. Strateji değiştirirken eski pozisyonları karıştırmamak için ayrı bir Compose proje adı kullan. Örneğin `docker compose -p paxg-ema up -d --build`. Günlük durum, 00:05 UTC veya sonrasındaki ilk geçerli kotasyonda SQLite'a ve loga bir kez yazılır. Webhook yapılandırılmışsa gönderim kuyruğuna da eklenir. Webhook teslimi bağlantıya bağlıdır.
+
+Herkese açık piyasa verisiyle çalışan desteklenen seçenek `--mode paper`. `--mode testnet` ve `--mode live` (onay bayrağı dahil) hesap bağlantısı açmadan hata verir.

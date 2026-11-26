@@ -97,7 +97,7 @@ class PaperExecutor:
             if pos:
                 units = D(pos["units"])
                 target = D(pos["target"]) if pos["target"] is not None else None
-                reason = ("daily_limit" if w["locked"] else "stop" if book.bid <= D(pos["stop"])
+                reason = ("stop" if book.bid <= D(pos["stop"])
                           else "target" if target is not None and book.bid > target*(1+PENETRATION) else None)
                 if reason and book.bid_qty >= units:
                     price = target*(1-MAKER) if reason == "target" else taker
@@ -112,4 +112,5 @@ class PaperExecutor:
             pos = w["position"]
             equity = D(w["cash"])+(D(pos["units"])*taker if pos else 0)
             update(w,day,equity,self.daily_loss)
+            w["last_equity"] = str(equity)
             return equity, D(w["realized"]), recorded

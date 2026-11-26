@@ -1,0 +1,15 @@
+services:
+  paper:
+    build: .
+    command: ["--mode", "paper", "--strategy", "${PAPER_STRATEGY:-keltner-1d}"]
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      PAPER_DB: /state/paper.sqlite3
+    volumes:
+      - paper-state:/state
+    restart: unless-stopped
+
+volumes:
+  paper-state:

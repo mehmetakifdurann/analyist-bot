@@ -6,14 +6,14 @@ import json
 import logging
 import os
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from decimal import Decimal as D
 from pathlib import Path
-from typing import Iterable
+from typing import Callable, Iterable
 
 from spot_data import get_json
 from .executor import Filters, PaperExecutor
-from .notify import Notifier
+from .notify import Notifier, heartbeat
 from .state import State
 from .strategy import DailySwing, DemoPullback, Observe, Strategy
 from .stream import Book, History, SYMBOL, URL, events, stamp
@@ -36,18 +36,23 @@ def filters() -> Filters:
 
 
 def run(feed: Iterable[Book | History], executor: PaperExecutor, strategy: Strategy,
-        notifier: Notifier, max_books: int = 0) -> int:
+        notifier: Notifier, max_books: int = 0, *, clock: Callable[[], float] = time.time,
+        on_equity: Callable[[D], None] | None = None) -> int:
     closed = None
     trail = None
     update_id = -1
     seen = 0
     last_status = 0
-    last_day = None
-    latest_equity = latest_realized = None
+    last_signal = None
+    last_heartbeat_check = None
     for event in feed:
         if isinstance(event, History):
             if isinstance(strategy, DailySwing):
                 view = strategy.view(event.candles)
+                last_signal = {"time": event.candles[-1].time.replace(hour=0).isoformat()
+                               if event.candles[-1].time.hour == 23 else
+                               (event.candles[-1].time.replace(hour=0)-timedelta(days=1)).isoformat(),
+                               "strategy": strategy.kind, "entry": view.flags[strategy.flag]} if view else None
                 if view:
                     trail = event.candles, D(str(view.atr))
                     if event.warmup or event.candles[-1].time.hour == 23:
@@ -65,8 +70,7 @@ def run(feed: Iterable[Book | History], executor: PaperExecutor, strategy: Strat
         if event.update <= update_id:
             continue
         update_id = event.update
-        now = int(time.time())
-        day = datetime.fromtimestamp(now,timezone.utc).date()
+        now = int(clock())
         equity, realized, changes = executor.on_book(event,now)
         if trail is not None:
             executor.trail(*trail)
@@ -75,12 +79,17 @@ def run(feed: Iterable[Book | History], executor: PaperExecutor, strategy: Strat
             opened = stamp(closed[-1])
             age = now - (opened//1000+3600)
             if -5 <= age <= 90:
-                executor.on_close(opened,strategy.on_close(closed,event),event,now)
+                intent = strategy.on_close(closed,event)
+                if not isinstance(strategy, DailySwing):
+                    last_signal = {"time": closed[-1].time.isoformat(), "entry": intent is not None}
+                executor.on_close(opened,intent,event,now)
             closed = None
-        if last_day is not None and last_day != day:
-            notifier.publish({"kind":"paper_daily_summary","date":str(last_day),
-                              "equity":str(latest_equity),"realized":str(latest_realized)})
-        last_day, latest_equity, latest_realized = day, equity, realized
+        if on_equity is not None:
+            on_equity(equity)
+        minute = now//60
+        if minute != last_heartbeat_check:
+            heartbeat(executor.state, notifier, now, last_signal)
+            last_heartbeat_check = minute
         for change in changes:
             logging.info("paper event %s",json.dumps(change))
             notifier.publish(change)
@@ -97,7 +106,7 @@ def run(feed: Iterable[Book | History], executor: PaperExecutor, strategy: Strat
 def main() -> None:
     cli = argparse.ArgumentParser(description=__doc__)
     cli.add_argument("--mode", choices=("paper","testnet","live"), default="paper")
-    cli.add_argument("--strategy", choices=("observe","demo-pullback","donchian-1d","keltner-1d"), default="observe")
+    cli.add_argument("--strategy", choices=("observe","demo-pullback","donchian-1d","keltner-1d","ema-1d"), default="observe")
     cli.add_argument("--db", type=Path, default=Path(os.getenv("PAPER_DB","paper.sqlite3")))
     cli.add_argument("--cash", type=D, default=D(os.getenv("PAPER_CASH","10000")))
     cli.add_argument("--daily-loss", type=D, default=D(os.getenv("PAPER_DAILY_LOSS","0.01")))

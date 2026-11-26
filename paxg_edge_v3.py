@@ -129,4 +129,15 @@ def research(path: Path) -> dict:
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("csv",type=Path)
-    print(json.dumps(research(p.parse_args().csv),indent=2,allow_nan=False))
+    p.add_argument("--paper-parity", action="store_true", help="Replay the live paper engine on synthetic historical books")
+    args = p.parse_args()
+    if args.paper_parity:
+        from paper_parity import END, START, parity
+        candles = read(args.csv)
+        report = {"start_utc": START.isoformat(), "end_utc": END.isoformat(),
+                  "results": {name: {path: parity(candles,name,path=="high_first")
+                                     for path in ("low_first","high_first")}
+                              for name in ("keltner-1d","ema-1d")}}
+    else:
+        report = research(args.csv)
+    print(json.dumps(report,indent=2,allow_nan=False))

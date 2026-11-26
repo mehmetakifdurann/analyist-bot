@@ -29,3 +29,18 @@ Hibrit rejim, kapanmış günlük Donchian kırılımı ve yükselen günlük tr
 Sonuçlar bağımsız yeni canlı gerçekleşme testi değildir. Paper ve V3 sabit stratejileri aynı kapanmış mum sinyali ile ATR fonksiyonunu kullanır. V3 girişleri sonraki mumun açılışından varsayarken paper bid tarafında pasif limit, %25 sanal büyüklük ve günlük devre kesici uygular. Paper pozisyonunun takip seviyesi saatlik kapanıştan sonra güncellenir. Bu farklardan ötürü V3 PnL’si paper motorunun beklenen PnL’si olarak kullanılmaz.
 
 [Dönem bazında parametreler, maliyet stresi ve tüm metrikler](paper_runs/paxg-edge-v3.json)
+
+## Online paper paritesi
+
+30 Ağustos 2021–26 Kasım 2026 UTC aralığında iki sabit strateji, online motorun aynı strateji, yürütücü, SQLite ve günlük risk koduyla yeniden oynatıldı. Giriş, gün kapanışından sonraki ilk kotasyonun bid tarafında pasif limit olarak yazılır. Emir ömrü bir saat. Pozisyon nakdin %25'iyle sınırlıdır. Maker ücreti %0,10, stop çıkışı taker ücreti %0,10 ve ek %0,02 kayma kullanır. Günlük %1 kuralı yeni girişleri kilitler ve bekleyen girişi iptal eder. Açık pozisyon kendi stopuyla yönetilir.
+
+| Strateji | Saat içi fiyat sırası | Emir | Dolan | Kapanan | Net USDT getirisi | Profit Factor | Azami düşüş |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Keltner 1D | Önce dip | 48 | 40 | 40 | +%1,13 | 1,061 | %11,31 |
+| Keltner 1D | Önce tepe | 48 | 40 | 40 | +%5,58 | 1,289 | %9,01 |
+| EMA 1D | Önce dip | 61 | 50 | 50 | +%7,01 | 1,306 | %10,00 |
+| EMA 1D | Önce tepe | 61 | 50 | 50 | +%11,79 | 1,500 | %9,01 |
+
+Her saat, açılış, iki uç ve kapanıştan oluşan dört sentetik kotasyona dönüştürülür. İki senaryoda aynı iki baz puan toplam spread ve yeterli görünen miktar varsayılır. Gerçek saat içi sıra, emir defteri, kuyruk ve geçmiş filtre değişiklikleri bilinmiyor. İki sıra duyarlılık örneğidir ve mümkün olan tüm sonuçları sınırlamaz. Zorunlu dönem sonu satışı yoktur. Net sonuç son bid üzerinden özsermayeyi, PF kapanan işlemleri ölçer. Dört koşunun sonunda da pozisyon kapalıydı.
+
+EMA'nın düşük senaryoda PF 1,30 sınırını az farkla geçmesi, gerçek kotasyon ve dolum koşullarında aynı sonucu kanıtlamaz. Keltner iki senaryoda da PF 1,30'un altında kaldı. [Parite veri çıktısı](paper_runs/paxg-paper-parity.json)

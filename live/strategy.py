@@ -1,5 +1,6 @@
 """Plugins return a paper order proposal after a closed candle."""
 from dataclasses import dataclass
+from datetime import datetime, timedelta
 from decimal import Decimal as D
 from typing import Protocol, Sequence
 
@@ -46,15 +47,25 @@ class DailySwing:
 
     def __init__(self, kind: str):
         self.kind = kind
-        self.flag = {"donchian-1d": 0, "keltner-1d": 1}[kind]
+        self._daily_cache: tuple[datetime, View] | None = None
+        self.flag = {"donchian-1d": 0, "keltner-1d": 1, "ema-1d": 2}[kind]
 
     def view(self, candles: Sequence[Candle], period: int = 24) -> View | None:
+        if len(candles) < 51*period:
+            return None
+        t = candles[-1].time
+        key = t.replace(hour=0) - timedelta(days=t.hour != 23)
+        if period == 24 and self._daily_cache and self._daily_cache[0] == key:
+            return self._daily_cache[1]
         hourly = [Bar(c.time, *(float(v) for v in (c.open,c.high,c.low,c.close,c.volume)))
                   for c in candles]
         bars = resample(hourly,period)[-51:]
-        if len(bars) != 51 or (bars[-1].time-bars[0].time).total_seconds() != 50*period*3600:
-            return None
-        return swing_view(bars)
+        result = (swing_view(bars) if len(bars) == 51 and
+                  (bars[-1].time-bars[0].time).total_seconds() == 50*period*3600 else None)
+        # Short warmups can be retried after a backfill on the same UTC day.
+        if period == 24 and result is not None:
+            self._daily_cache = key, result
+        return result
 
     def on_close(self, candles: Sequence[Candle], book: Book) -> Intent | None:
         if candles[-1].time.hour != 23:
