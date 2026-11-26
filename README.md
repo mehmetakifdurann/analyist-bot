@@ -42,7 +42,7 @@ python3 -m live --mode paper --strategy demo-pullback --db demo.sqlite3
 python3 -m live --mode paper --max-books 3 --db smoke.sqlite3
 ```
 
-`live/stream.py` Binance Spot kline ve bookTicker dinler. REST'ten ilk 250 kapalı mumu alır ve bağlantı yenilendiğinde eksik mumları tamamlar. `--public-stream` Binance'in yalnız piyasa verisi sunan alternatif alan adını seçer. `live/strategy.py` yeni stratejilerin kapalı mum ve güncel emir defteri üzerinden sanal emir önerisi üretmesini sağlar. Varsayılan gözlem modudur.
+`live/stream.py` Binance Spot kline ve bookTicker dinler. REST'ten ilk 250 kapalı mumu alır ve bağlantı yenilendiğinde eksik mumları tamamlar. `--public-stream` Binance'in yalnız piyasa verisi sunan alternatif alan adını seçer. `live/strategy.py` yeni stratejilerin kapalı mum ve güncel emir defteri üzerinden sanal emir önerisi üretmesini sağlar. Varsayılan paper stratejisi EMA 1D. Yalnızca fiyat izlemek için `--strategy observe` seçilebilir.
 
 `live/executor.py`, yeni kotasyonda fiyat limitin ötesine geçtiğinde ve görünen miktar yeterliyse sanal dolum yazar. Limit, stop ve hedef ilişkisi ile miktar adımı denetlenir. Kotasyonlar arasındaki emir kuyruğu bilinmez. Kesinti sırasında varsayımsal gerçekleşme üretilmez, stop ve hedef ilk yeni kotasyonda tekrar değerlendirilir. Eski mumlardan yeni giriş başlatılmaz.
 
@@ -62,7 +62,7 @@ python3 -m live --mode paper --strategy donchian-1d --db donchian.sqlite3
 python3 -m live --mode paper --strategy keltner-1d --db keltner.sqlite3
 ```
 
-Her iki günlük strateji açılışta 1.344 kapanmış saatlik mumla 4H ve 1D geçmişi oluşturur. 250 saat yalnızca yaklaşık 10 gün sağlar ve günlük SMA50 için yetmez. Başlangıçta günlük sinyal hesaplanır ve loglanır. Yeni paper emirleri güncel bir günlük kapanıştan sonra değerlendirilir. Aktif stop ve hesap durumu SQLite'ta kalır.
+Günlük stratejiler açılışta 1.344 kapanmış saatlik mumla 4H ve 1D geçmişi oluşturur. 250 saat yalnızca yaklaşık 10 gün sağlar ve günlük SMA50 için yetmez. Başlangıçta günlük sinyal hesaplanır ve loglanır. Yeni paper emirleri güncel bir günlük kapanıştan sonra değerlendirilir. Aktif stop ve hesap durumu SQLite'ta kalır.
 
 ```sh
 docker build -t analyist-bot .
@@ -90,6 +90,13 @@ docker compose up -d --build
 docker compose logs -f paper
 ```
 
-Compose 2.24+ gerekir. `PAPER_STRATEGY` varsayılanı `keltner-1d`; `ema-1d`, `donchian-1d` ve `observe` seçenekleri de var. `/state` adlandırılmış volume'da kalıcıdır. Strateji değiştirirken eski pozisyonları karıştırmamak için ayrı bir Compose proje adı kullan. Örneğin `docker compose -p paxg-ema up -d --build`. Günlük durum, 00:05 UTC veya sonrasındaki ilk geçerli kotasyonda SQLite'a ve loga bir kez yazılır. Webhook yapılandırılmışsa gönderim kuyruğuna da eklenir. Webhook teslimi bağlantıya bağlıdır.
+Compose 2.24+ gerekir. `PAPER_STRATEGY` varsayılanı `ema-1d`; `keltner-1d`, `donchian-1d` ve `observe` seçenekleri de var. `/state` adlandırılmış volume'da kalıcıdır. Strateji değiştirirken eski pozisyonları karıştırmamak için ayrı bir Compose proje adı kullan. Örneğin `docker compose -p paxg-ema up -d --build`. Günlük durum, 00:05 UTC veya sonrasındaki ilk geçerli kotasyonda SQLite'a ve loga bir kez yazılır. Webhook yapılandırılmışsa gönderim kuyruğuna da eklenir. Webhook teslimi bağlantıya bağlıdır.
 
 Herkese açık piyasa verisiyle çalışan desteklenen seçenek `--mode paper`. `--mode testnet` ve `--mode live` (onay bayrağı dahil) hesap bağlantısı açmadan hata verir.
+
+
+Varsayılan EMA 1D paper ayarı dört saat emir ömrü ve %25 pozisyon tavanıdır. EMA 1D için bir ve dört saatlik emir ömrü ile %25 ve %50 pozisyon tavanını karşılaştıran [duyarlılık deneyi](PAXG_EDGE_V3.md#ema-1d-emir-ömrü-ve-pozisyon-tavanı) şu komutla üretilebilir:
+
+```sh
+python3 paxg_edge_v3.py data/training/PAXGUSDT_1h.csv --ema-sensitivity > paper_runs/paxg-ema-sensitivity.json
+```

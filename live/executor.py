@@ -24,7 +24,11 @@ class Filters:
 
 
 class PaperExecutor:
-    def __init__(self, state: State, filters: Filters, daily_loss: D = D(".01")):
+    def __init__(self, state: State, filters: Filters, daily_loss: D = D(".01"),
+                 *, position_cap: D = D(".25")):
+        if not position_cap.is_finite() or not 0 < position_cap <= 1:
+            raise ValueError("Paper position cap must be in (0, 1]")
+        self.position_cap = position_cap
         self.state, self.filters, self.daily_loss = state, filters, daily_loss
 
     def on_close(self, candle: int, intent: Intent | None, book: Book, now: int) -> None:
@@ -44,7 +48,7 @@ class PaperExecutor:
                       if intent.target is not None else None)
             if not 0 < stop < limit or (target is not None and target <= limit) or limit >= book.ask:
                 return
-            budget = D(w["cash"])*D(".25")
+            budget = D(w["cash"])*self.position_cap
             units = budget/(limit*(1+MAKER))//self.filters.step*self.filters.step
             if units < self.filters.minimum or units*stop < self.filters.notional:
                 return

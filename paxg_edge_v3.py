@@ -129,9 +129,14 @@ def research(path: Path) -> dict:
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("csv",type=Path)
-    p.add_argument("--paper-parity", action="store_true", help="Replay the live paper engine on synthetic historical books")
+    mode = p.add_mutually_exclusive_group()
+    mode.add_argument("--ema-sensitivity", action="store_true", help="Compare EMA paper TTL and size settings")
+    mode.add_argument("--paper-parity", action="store_true", help="Replay the live paper engine on synthetic historical books")
     args = p.parse_args()
-    if args.paper_parity:
+    if args.ema_sensitivity:
+        from paper_parity import ema_sensitivity
+        report = ema_sensitivity(read(args.csv))
+    elif args.paper_parity:
         from paper_parity import END, START, parity
         candles = read(args.csv)
         report = {"start_utc": START.isoformat(), "end_utc": END.isoformat(),

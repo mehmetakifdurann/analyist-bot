@@ -44,3 +44,22 @@ Sonuçlar bağımsız yeni canlı gerçekleşme testi değildir. Paper ve V3 sab
 Her saat, açılış, iki uç ve kapanıştan oluşan dört sentetik kotasyona dönüştürülür. İki senaryoda aynı iki baz puan toplam spread ve yeterli görünen miktar varsayılır. Gerçek saat içi sıra, emir defteri, kuyruk ve geçmiş filtre değişiklikleri bilinmiyor. İki sıra duyarlılık örneğidir ve mümkün olan tüm sonuçları sınırlamaz. Zorunlu dönem sonu satışı yoktur. Net sonuç son bid üzerinden özsermayeyi, PF kapanan işlemleri ölçer. Dört koşunun sonunda da pozisyon kapalıydı.
 
 EMA'nın düşük senaryoda PF 1,30 sınırını az farkla geçmesi, gerçek kotasyon ve dolum koşullarında aynı sonucu kanıtlamaz. Keltner iki senaryoda da PF 1,30'un altında kaldı. [Parite veri çıktısı](paper_runs/paxg-paper-parity.json)
+
+## EMA 1D emir ömrü ve pozisyon tavanı
+
+Aynı tarih aralığı, sentetik kotasyonlar, fiyat sıraları ve %1 UTC giriş kilidiyle dört ayar tekrar oynatıldı. Dolum oranı, dolan emir sayısının verilen emir sayısına oranıdır. Net getiri son kotasyondaki özsermayeyi, Profit Factor kapanan işlemleri ölçer.
+
+| Emir ömrü | Tavan | Mum içi sıra | Dolan / verilen | Dolum oranı | Net getiri | PF | Azami düşüş |
+|---:|---:|---|---:|---:|---:|---:|---:|
+| 1 saat | %25 | Dip önce | 50/61 | %81.97 | %+7.01 | 1.306 | %10.00 |
+| 1 saat | %25 | Tepe önce | 50/61 | %81.97 | %+11.79 | 1.500 | %9.01 |
+| 1 saat | %50 | Dip önce | 50/61 | %81.97 | %+13.58 | 1.280 | %18.36 |
+| 1 saat | %50 | Tepe önce | 50/61 | %81.97 | %+23.62 | 1.458 | %16.54 |
+| 4 saat | %25 | Dip önce | 50/52 | %96.15 | %+8.71 | 1.377 | %10.00 |
+| 4 saat | %25 | Tepe önce | 50/52 | %96.15 | %+13.57 | 1.570 | %9.01 |
+| 4 saat | %50 | Dip önce | 50/52 | %96.15 | %+17.18 | 1.348 | %18.36 |
+| 4 saat | %50 | Tepe önce | 50/52 | %96.15 | %+27.54 | 1.524 | %16.54 |
+
+Bir saat ve %25 referans ayarı önceki EMA paritesinin tüm metriklerini birebir üretti. Dört saat ve %25 iki fiyat sırasında da PF'yi iyileştirdi ve azami düşüşü değiştirmedi. Dolu emir sayısı 50 kaldı. Oranın yükselmesi, daha az emir verilmesinden kaynaklandı. %50 pozisyon tavanı iki fiyat sırasında da azami düşüşü artırdı. EMA 1D paper varsayılanı dört saat ve %25 olarak ayarlandı. Bu seçim aynı tarihsel arşivdeki duyarlılık deneyine dayanır.
+
+[Sekiz koşunun ayrıntıları](paper_runs/paxg-ema-sensitivity.json)

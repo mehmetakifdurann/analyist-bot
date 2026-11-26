@@ -20,11 +20,12 @@ START = datetime(2021, 8, 30, tzinfo=timezone.utc)
 END = datetime(2026, 11, 26, tzinfo=timezone.utc)
 
 
-def parity(bars: list[Bar], name: str, high_first: bool = False) -> dict:
-    strategy = DailySwing(name)
+def parity(bars: list[Bar], name: str, high_first: bool = False, *,
+           ttl_seconds: int = 3600, position_cap: D = D(".25")) -> dict:
+    strategy = DailySwing(name, ttl_seconds=ttl_seconds)
     state = State(Path(":memory:"), "10000")
     # Fixed PAXG filter snapshot. Historical filters and book quantities are unavailable.
-    executor = PaperExecutor(state, Filters(D(".0001"), D(".0001"), D("5"), D(".01")))
+    executor = PaperExecutor(state, Filters(D(".0001"), D(".0001"), D("5"), D(".01")), position_cap=position_cap)
     history: deque[Candle] = deque(maxlen=strategy.warmup_hours)
     now = 0
     marks = []
@@ -77,3 +78,18 @@ def parity(bars: list[Bar], name: str, high_first: bool = False) -> dict:
                     "end_position_open":bool(wallet["position"]), "data_gaps":gaps}
     finally:
         state.db.close()
+
+
+def ema_sensitivity(bars: list[Bar]) -> dict:
+    results = []
+    for hours in (1, 4):
+        for cap in (D(".25"), D(".50")):
+            paths = {}
+            for path in ("low_first", "high_first"):
+                case = parity(bars, "ema-1d", path == "high_first",
+                              ttl_seconds=3600*hours, position_cap=cap)
+                case["fill_rate_pct"] = 100*case["filled"]/case["submitted"] if case["submitted"] else None
+                paths[path] = case
+            results.append({"ttl_hours": hours, "position_cap_pct": int(cap*100), "paths": paths})
+    return {"strategy": "ema-1d", "start_utc": START.isoformat(), "end_utc": END.isoformat(),
+            "daily_entry_lock_pct": 1, "results": results}

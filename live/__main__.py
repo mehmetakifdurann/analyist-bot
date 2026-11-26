@@ -106,7 +106,7 @@ def run(feed: Iterable[Book | History], executor: PaperExecutor, strategy: Strat
 def main() -> None:
     cli = argparse.ArgumentParser(description=__doc__)
     cli.add_argument("--mode", choices=("paper","testnet","live"), default="paper")
-    cli.add_argument("--strategy", choices=("observe","demo-pullback","donchian-1d","keltner-1d","ema-1d"), default="observe")
+    cli.add_argument("--strategy", choices=("observe","demo-pullback","donchian-1d","keltner-1d","ema-1d"), default="ema-1d")
     cli.add_argument("--db", type=Path, default=Path(os.getenv("PAPER_DB","paper.sqlite3")))
     cli.add_argument("--cash", type=D, default=D(os.getenv("PAPER_CASH","10000")))
     cli.add_argument("--daily-loss", type=D, default=D(os.getenv("PAPER_DAILY_LOSS","0.01")))

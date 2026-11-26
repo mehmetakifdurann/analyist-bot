@@ -1,7 +1,7 @@
 services:
   paper:
     build: .
-    command: ["--mode", "paper", "--strategy", "${PAPER_STRATEGY:-keltner-1d}"]
+    command: ["--mode", "paper", "--strategy", "${PAPER_STRATEGY:-ema-1d}"]
     env_file:
       - path: .env
         required: false

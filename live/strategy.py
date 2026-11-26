@@ -45,8 +45,9 @@ class DailySwing:
     """Paper execution adapter for the common V3 daily indicators."""
     warmup_hours = 56 * 24
 
-    def __init__(self, kind: str):
+    def __init__(self, kind: str, *, ttl_seconds: int | None = None):
         self.kind = kind
+        self.ttl_seconds = ttl_seconds if ttl_seconds is not None else (14400 if kind == "ema-1d" else 3600)
         self._daily_cache: tuple[datetime, View] | None = None
         self.flag = {"donchian-1d": 0, "keltner-1d": 1, "ema-1d": 2}[kind]
 
@@ -74,4 +75,4 @@ class DailySwing:
         if v is None or not v.flags[self.flag] or v.atr <= 0:
             return None
         limit = book.bid
-        return Intent(limit, limit-3*D(str(v.atr)), None)
+        return Intent(limit, limit-3*D(str(v.atr)), None, self.ttl_seconds)

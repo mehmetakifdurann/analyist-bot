@@ -194,3 +194,47 @@ class PaperParityRegressionTests(unittest.TestCase):
             self.assertEqual(payload["last_closed_signal"],{"entry":True})
             self.assertEqual(state.db.execute("SELECT COUNT(*) FROM events").fetchone()[0],1)
             state.db.close()
+
+
+class PaperSettingsTests(unittest.TestCase):
+    def test_size_caps_and_ttl_expiry_at_boundary(self):
+        now = 1_800_000_000
+        f = Filters(D(".001"), D(".001"), D("5"), D(".01"))
+        book = Book(1,D(100),D(101),D(1000),D(1000))
+        fill_quote = Book(2,D(98),D("98.5"),D(1000),D(1000))
+        for hours in (1,4):
+            for cap in (D(".25"),D(".50")):
+                with self.subTest(hours=hours,cap=cap):
+                    state = State(Path(":memory:"),"10000")
+                    self.addCleanup(state.db.close)
+                    engine = PaperExecutor(state,f,position_cap=cap)
+                    engine.on_book(book,now)
+                    engine.on_close(123,Intent(D("99.019"),D(90),None,hours*3600),book,now)
+                    with state.transaction() as wallet:
+                        order = wallet["pending"]
+                        self.assertEqual(D(order["limit"]),D("99.01"))
+                        self.assertEqual(order["expires"],now+hours*3600)
+                        reserved = D(order["units"])*D(order["limit"])*D("1.001")
+                        self.assertLessEqual(reserved,10000*cap)
+                        self.assertGreater(reserved,10000*cap-1)
+                    _, _, events = engine.on_book(fill_quote,now+hours*3600)
+                    self.assertEqual(events[0]["kind"],"canceled")
+
+    def test_authenticated_modes_exit_before_market_or_account_access(self):
+        from contextlib import redirect_stderr
+        from io import StringIO
+        from live.__main__ import main
+
+        for mode in ("testnet","live"):
+            with self.subTest(mode=mode), patch("sys.argv",["live","--mode",mode]), \
+                 patch("live.__main__.filters") as filters, redirect_stderr(StringIO()):
+                with self.assertRaises(SystemExit) as err:
+                    main()
+                self.assertEqual(err.exception.code,2)
+                filters.assert_not_called()
+
+    def test_ema_default_ttl_keeps_historical_override_available(self):
+        from live.strategy import DailySwing
+        self.assertEqual(DailySwing("ema-1d").ttl_seconds,14400)
+        self.assertEqual(DailySwing("ema-1d",ttl_seconds=3600).ttl_seconds,3600)
+        self.assertEqual(DailySwing("keltner-1d").ttl_seconds,3600)
