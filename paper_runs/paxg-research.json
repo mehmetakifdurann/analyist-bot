@@ -1,0 +1,6738 @@
+{
+  "market": "Binance Spot PAXGUSDT",
+  "currency": "USDT",
+  "stages": {
+    "corrected": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 2,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 16,
+      "volatility_slip": 0,
+      "adx_min": 0,
+      "overlap": false,
+      "mtf": false,
+      "breakeven_r": 0,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "dynamic_cost": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 2,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 0,
+      "overlap": false,
+      "mtf": false,
+      "breakeven_r": 0,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "adx": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 2,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": false,
+      "breakeven_r": 0,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "session": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 2,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": true,
+      "mtf": false,
+      "breakeven_r": 0,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "mtf": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 2,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": true,
+      "breakeven_r": 0,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "session_and_mtf": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 2,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": true,
+      "mtf": true,
+      "breakeven_r": 0,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "breakeven": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 2,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": true,
+      "breakeven_r": 1,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "partial": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 2,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": true,
+      "breakeven_r": 1,
+      "partial": true,
+      "trailing": false,
+      "circuit": false
+    },
+    "trailing_and_hold": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 2,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": true,
+      "breakeven_r": 1,
+      "partial": true,
+      "trailing": true,
+      "circuit": false
+    },
+    "circuit": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 2,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": true,
+      "breakeven_r": 1,
+      "partial": true,
+      "trailing": true,
+      "circuit": true
+    },
+    "higher_cost_stress": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 2,
+      "maker_fee_bps": 20,
+      "taker_fee_bps": 20,
+      "slippage_bps": 8,
+      "volatility_slip": 1,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": true,
+      "breakeven_r": 1,
+      "partial": true,
+      "trailing": true,
+      "circuit": true
+    },
+    "corrected_6atr": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 6,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 16,
+      "volatility_slip": 0,
+      "adx_min": 0,
+      "overlap": false,
+      "mtf": false,
+      "breakeven_r": 0,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "dynamic_cost_6atr": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 6,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 0,
+      "overlap": false,
+      "mtf": false,
+      "breakeven_r": 0,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "adx_6atr": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 6,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": false,
+      "breakeven_r": 0,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "session_6atr": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 6,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": true,
+      "mtf": false,
+      "breakeven_r": 0,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "mtf_6atr": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 6,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": true,
+      "breakeven_r": 0,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "session_and_mtf_6atr": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 6,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": true,
+      "mtf": true,
+      "breakeven_r": 0,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "breakeven_6atr": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 6,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": true,
+      "breakeven_r": 1,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "partial_6atr": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 6,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": true,
+      "breakeven_r": 1,
+      "partial": true,
+      "trailing": false,
+      "circuit": false
+    },
+    "trailing_and_hold_6atr": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 6,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": true,
+      "breakeven_r": 1,
+      "partial": true,
+      "trailing": true,
+      "circuit": false
+    },
+    "circuit_6atr": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 6,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": true,
+      "breakeven_r": 1,
+      "partial": true,
+      "trailing": true,
+      "circuit": true
+    },
+    "breakeven_1_5r_6atr": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 6,
+      "maker_fee_bps": 10,
+      "taker_fee_bps": 10,
+      "slippage_bps": 4,
+      "volatility_slip": 0.5,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": true,
+      "breakeven_r": 1.5,
+      "partial": false,
+      "trailing": false,
+      "circuit": false
+    },
+    "higher_cost_stress_6atr": {
+      "ema": 20,
+      "channel": 20,
+      "relative_volume": 1.25,
+      "stop_atr": 1,
+      "target_atr": 6,
+      "maker_fee_bps": 20,
+      "taker_fee_bps": 20,
+      "slippage_bps": 8,
+      "volatility_slip": 1,
+      "adx_min": 22,
+      "overlap": false,
+      "mtf": true,
+      "breakeven_r": 1,
+      "partial": true,
+      "trailing": true,
+      "circuit": true
+    }
+  },
+  "walk_forward_selection": [
+    {
+      "train_from": "2026-04-01T00:00:00+00:00",
+      "train_to_exclusive": "2026-06-23T00:00:00+00:00",
+      "test_from": "2026-06-24T00:00:00+00:00",
+      "test_to_exclusive": "2026-07-22T00:00:00+00:00",
+      "selected": null,
+      "sensitivity": [
+        {
+          "config": {
+            "ema": 16,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 189,
+              "net_reward_risk": 19,
+              "trend_or_regime": 1783
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 16,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 205,
+              "net_reward_risk": 20,
+              "trend_or_regime": 1766
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.0,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 205,
+              "net_reward_risk": 20,
+              "trend_or_regime": 1766
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 0.75,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 206,
+              "net_reward_risk": 19,
+              "trend_or_regime": 1766
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 2.0,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 206,
+              "net_reward_risk": 19,
+              "trend_or_regime": 1766
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 206,
+              "net_reward_risk": 19,
+              "trend_or_regime": 1766
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 6.0,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 6,
+            "net_return_pct": -1.2683774718661889,
+            "win_rate_pct": 16.666666666666668,
+            "avg_win_usdt": 12.115391093901186,
+            "avg_loss_usdt": -27.79062765610556,
+            "profit_factor": 0.08719048194105433,
+            "expectancy_usdt": -21.139624531104435,
+            "sharpe": -4.2995444339781,
+            "sortino": -4.660536232445358,
+            "calmar": -3.9264635849302936,
+            "max_drawdown_pct": 1.3902667441016647,
+            "max_loss_streak": 3,
+            "decisions": {
+              "breakout_volume_or_gap": 163,
+              "entry": 6,
+              "stop": 6,
+              "trend_or_regime": 1748,
+              "net_reward_risk": 5,
+              "circuit": 24,
+              "partial": 1
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1.25,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 206,
+              "net_reward_risk": 19,
+              "trend_or_regime": 1766
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.5,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 207,
+              "net_reward_risk": 18,
+              "trend_or_regime": 1766
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 24,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 205,
+              "net_reward_risk": 20,
+              "trend_or_regime": 1766
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 24,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 216,
+              "net_reward_risk": 19,
+              "trend_or_regime": 1756
+            }
+          }
+        }
+      ]
+    },
+    {
+      "train_from": "2026-04-29T00:00:00+00:00",
+      "train_to_exclusive": "2026-07-21T00:00:00+00:00",
+      "test_from": "2026-07-22T00:00:00+00:00",
+      "test_to_exclusive": "2026-08-19T00:00:00+00:00",
+      "selected": null,
+      "sensitivity": [
+        {
+          "config": {
+            "ema": 16,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1818,
+              "breakout_volume_or_gap": 160,
+              "net_reward_risk": 13
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 16,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1805,
+              "breakout_volume_or_gap": 173,
+              "net_reward_risk": 13
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.0,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1805,
+              "breakout_volume_or_gap": 172,
+              "net_reward_risk": 14
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 0.75,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1805,
+              "breakout_volume_or_gap": 173,
+              "net_reward_risk": 13
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 2.0,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1805,
+              "breakout_volume_or_gap": 173,
+              "net_reward_risk": 13
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1805,
+              "breakout_volume_or_gap": 173,
+              "net_reward_risk": 13
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 6.0,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 3,
+            "net_return_pct": -0.32748035401372055,
+            "win_rate_pct": 33.333333333333336,
+            "avg_win_usdt": 12.230848900326482,
+            "avg_loss_usdt": -22.4894421508466,
+            "profit_factor": 0.27192423934503995,
+            "expectancy_usdt": -10.916011800455573,
+            "sharpe": -1.4930765219033157,
+            "sortino": -1.6980193742883674,
+            "calmar": -2.051202666950798,
+            "max_drawdown_pct": 0.6981921806403335,
+            "max_loss_streak": 2,
+            "decisions": {
+              "trend_or_regime": 1805,
+              "breakout_volume_or_gap": 157,
+              "entry": 3,
+              "partial": 1,
+              "stop": 3,
+              "net_reward_risk": 3
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1.25,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1805,
+              "breakout_volume_or_gap": 173,
+              "net_reward_risk": 13
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.5,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1805,
+              "breakout_volume_or_gap": 173,
+              "net_reward_risk": 13
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 24,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1805,
+              "breakout_volume_or_gap": 173,
+              "net_reward_risk": 13
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 24,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1797,
+              "breakout_volume_or_gap": 181,
+              "net_reward_risk": 13
+            }
+          }
+        }
+      ]
+    },
+    {
+      "train_from": "2026-05-27T00:00:00+00:00",
+      "train_to_exclusive": "2026-08-18T00:00:00+00:00",
+      "test_from": "2026-08-19T00:00:00+00:00",
+      "test_to_exclusive": "2026-09-16T00:00:00+00:00",
+      "selected": null,
+      "sensitivity": [
+        {
+          "config": {
+            "ema": 16,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1668,
+              "breakout_volume_or_gap": 303,
+              "net_reward_risk": 20
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 16,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1653,
+              "breakout_volume_or_gap": 317,
+              "net_reward_risk": 21
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.0,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1653,
+              "breakout_volume_or_gap": 314,
+              "net_reward_risk": 24
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 0.75,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1653,
+              "breakout_volume_or_gap": 318,
+              "net_reward_risk": 20
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 2.0,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1653,
+              "breakout_volume_or_gap": 318,
+              "net_reward_risk": 20
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1653,
+              "breakout_volume_or_gap": 318,
+              "net_reward_risk": 20
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 6.0,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 4,
+            "net_return_pct": -0.3740769647909259,
+            "win_rate_pct": 25.0,
+            "avg_win_usdt": 29.62905789986091,
+            "avg_loss_usdt": -22.345584792983914,
+            "profit_factor": 0.441982285305326,
+            "expectancy_usdt": -9.351924119772708,
+            "sharpe": -1.6319328151889798,
+            "sortino": -2.0072208344081592,
+            "calmar": -2.8760199388571763,
+            "max_drawdown_pct": 0.5683599615569968,
+            "max_loss_streak": 2,
+            "decisions": {
+              "trend_or_regime": 1653,
+              "breakout_volume_or_gap": 290,
+              "entry": 4,
+              "stop": 3,
+              "net_reward_risk": 8,
+              "partial": 1,
+              "target": 1
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1.25,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1653,
+              "breakout_volume_or_gap": 318,
+              "net_reward_risk": 20
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.5,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1653,
+              "breakout_volume_or_gap": 318,
+              "net_reward_risk": 20
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 24,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1653,
+              "breakout_volume_or_gap": 316,
+              "net_reward_risk": 22
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 24,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1637,
+              "breakout_volume_or_gap": 334,
+              "net_reward_risk": 20
+            }
+          }
+        }
+      ]
+    },
+    {
+      "train_from": "2026-06-24T00:00:00+00:00",
+      "train_to_exclusive": "2026-09-15T00:00:00+00:00",
+      "test_from": "2026-09-16T00:00:00+00:00",
+      "test_to_exclusive": "2026-10-14T00:00:00+00:00",
+      "selected": null,
+      "sensitivity": [
+        {
+          "config": {
+            "ema": 16,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1602,
+              "breakout_volume_or_gap": 364,
+              "net_reward_risk": 25
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 16,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1590,
+              "breakout_volume_or_gap": 375,
+              "net_reward_risk": 26
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.0,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1590,
+              "breakout_volume_or_gap": 372,
+              "net_reward_risk": 29
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 0.75,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1590,
+              "breakout_volume_or_gap": 376,
+              "net_reward_risk": 25
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 2.0,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1590,
+              "breakout_volume_or_gap": 376,
+              "net_reward_risk": 25
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1590,
+              "breakout_volume_or_gap": 376,
+              "net_reward_risk": 25
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 6.0,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 7,
+            "net_return_pct": -1.019656525409085,
+            "win_rate_pct": 28.571428571428573,
+            "avg_win_usdt": 19.36581190427182,
+            "avg_loss_usdt": -28.139455269891183,
+            "profit_factor": 0.27528339434477916,
+            "expectancy_usdt": -14.566521791558896,
+            "sharpe": -3.558672654886113,
+            "sortino": -4.1334423444959265,
+            "calmar": -2.8005792496127957,
+            "max_drawdown_pct": 1.5735996642096461,
+            "max_loss_streak": 5,
+            "decisions": {
+              "trend_or_regime": 1588,
+              "breakout_volume_or_gap": 301,
+              "net_reward_risk": 12,
+              "entry": 7,
+              "partial": 2,
+              "target": 1,
+              "stop": 5,
+              "circuit": 24,
+              "stop_gap": 1
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1.25,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1590,
+              "breakout_volume_or_gap": 376,
+              "net_reward_risk": 25
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.5,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1590,
+              "breakout_volume_or_gap": 378,
+              "net_reward_risk": 23
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 24,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1590,
+              "breakout_volume_or_gap": 374,
+              "net_reward_risk": 27
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 24,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1576,
+              "breakout_volume_or_gap": 390,
+              "net_reward_risk": 25
+            }
+          }
+        }
+      ]
+    },
+    {
+      "train_from": "2026-07-22T00:00:00+00:00",
+      "train_to_exclusive": "2026-10-13T00:00:00+00:00",
+      "test_from": "2026-10-14T00:00:00+00:00",
+      "test_to_exclusive": "2026-11-11T00:00:00+00:00",
+      "selected": null,
+      "sensitivity": [
+        {
+          "config": {
+            "ema": 16,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 359,
+              "net_reward_risk": 25,
+              "trend_or_regime": 1607
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 16,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 370,
+              "net_reward_risk": 27,
+              "trend_or_regime": 1594
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.0,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 369,
+              "net_reward_risk": 28,
+              "trend_or_regime": 1594
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 0.75,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 372,
+              "net_reward_risk": 25,
+              "trend_or_regime": 1594
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 2.0,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 372,
+              "net_reward_risk": 25,
+              "trend_or_regime": 1594
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 372,
+              "net_reward_risk": 25,
+              "trend_or_regime": 1594
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 6.0,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 7,
+            "net_return_pct": -1.019656525409085,
+            "win_rate_pct": 28.571428571428573,
+            "avg_win_usdt": 19.36581190427182,
+            "avg_loss_usdt": -28.139455269891183,
+            "profit_factor": 0.27528339434477916,
+            "expectancy_usdt": -14.566521791558896,
+            "sharpe": -3.558672654886113,
+            "sortino": -4.1334423444959265,
+            "calmar": -2.8005792496127957,
+            "max_drawdown_pct": 1.5735996642096461,
+            "max_loss_streak": 5,
+            "decisions": {
+              "breakout_volume_or_gap": 297,
+              "net_reward_risk": 12,
+              "trend_or_regime": 1592,
+              "entry": 7,
+              "partial": 2,
+              "target": 1,
+              "stop": 5,
+              "circuit": 24,
+              "stop_gap": 1
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1.25,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 372,
+              "net_reward_risk": 25,
+              "trend_or_regime": 1594
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.5,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 374,
+              "net_reward_risk": 23,
+              "trend_or_regime": 1594
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 24,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 370,
+              "net_reward_risk": 27,
+              "trend_or_regime": 1594
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 24,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "breakout_volume_or_gap": 387,
+              "net_reward_risk": 25,
+              "trend_or_regime": 1579
+            }
+          }
+        }
+      ]
+    },
+    {
+      "train_from": "2026-08-19T00:00:00+00:00",
+      "train_to_exclusive": "2026-11-10T00:00:00+00:00",
+      "test_from": "2026-11-11T00:00:00+00:00",
+      "test_to_exclusive": "2026-11-25T00:00:00+00:00",
+      "selected": null,
+      "sensitivity": [
+        {
+          "config": {
+            "ema": 16,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1744,
+              "breakout_volume_or_gap": 233,
+              "net_reward_risk": 14
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 16,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1729,
+              "breakout_volume_or_gap": 245,
+              "net_reward_risk": 17
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.0,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1729,
+              "breakout_volume_or_gap": 248,
+              "net_reward_risk": 14
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 0.75,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1729,
+              "breakout_volume_or_gap": 248,
+              "net_reward_risk": 14
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 2.0,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1729,
+              "breakout_volume_or_gap": 248,
+              "net_reward_risk": 14
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1729,
+              "breakout_volume_or_gap": 248,
+              "net_reward_risk": 14
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 6.0,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 6,
+            "net_return_pct": -0.567031664912443,
+            "win_rate_pct": 33.333333333333336,
+            "avg_win_usdt": 23.1344094578986,
+            "avg_loss_usdt": -25.742996351760976,
+            "profit_factor": 0.4493340468565165,
+            "expectancy_usdt": -9.450527748541116,
+            "sharpe": -2.1435046666599717,
+            "sortino": -2.6698294565248406,
+            "calmar": -2.3806547646853535,
+            "max_drawdown_pct": 1.0373876124982195,
+            "max_loss_streak": 3,
+            "decisions": {
+              "trend_or_regime": 1706,
+              "breakout_volume_or_gap": 192,
+              "entry": 6,
+              "stop": 3,
+              "net_reward_risk": 5,
+              "circuit": 24,
+              "partial": 2,
+              "stop_gap": 1,
+              "open_exit": 1,
+              "boundary": 1
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1.25,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1729,
+              "breakout_volume_or_gap": 248,
+              "net_reward_risk": 14
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 20,
+            "relative_volume": 1.5,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1729,
+              "breakout_volume_or_gap": 249,
+              "net_reward_risk": 13
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 20,
+            "channel": 24,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1729,
+              "breakout_volume_or_gap": 248,
+              "net_reward_risk": 14
+            }
+          }
+        },
+        {
+          "config": {
+            "ema": 24,
+            "channel": 20,
+            "relative_volume": 1.25,
+            "stop_atr": 1,
+            "target_atr": 4,
+            "maker_fee_bps": 10,
+            "taker_fee_bps": 10,
+            "slippage_bps": 4,
+            "volatility_slip": 0.5,
+            "adx_min": 22,
+            "overlap": false,
+            "mtf": true,
+            "breakeven_r": 1,
+            "partial": true,
+            "trailing": true,
+            "circuit": true
+          },
+          "train": {
+            "hours": 1992,
+            "trades": 0,
+            "net_return_pct": 0.0,
+            "win_rate_pct": null,
+            "avg_win_usdt": null,
+            "avg_loss_usdt": null,
+            "profit_factor": null,
+            "expectancy_usdt": null,
+            "sharpe": null,
+            "sortino": null,
+            "calmar": null,
+            "max_drawdown_pct": 0.0,
+            "max_loss_streak": 0,
+            "decisions": {
+              "trend_or_regime": 1720,
+              "breakout_volume_or_gap": 257,
+              "net_reward_risk": 14
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "results": {
+    "legacy": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend": 475,
+            "cost_adjusted_reward_risk": 4,
+            "no_breakout": 186,
+            "gap_or_chasing": 3,
+            "volume": 3
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "no_breakout": 267,
+            "volume": 7,
+            "gap_or_chasing": 15,
+            "cost_adjusted_reward_risk": 18,
+            "trend": 364
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend": 521,
+            "no_breakout": 138,
+            "cost_adjusted_reward_risk": 8,
+            "volume": 2,
+            "gap_or_chasing": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend": 512,
+            "no_breakout": 144,
+            "cost_adjusted_reward_risk": 6,
+            "gap_or_chasing": 6,
+            "volume": 3
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend": 489,
+            "no_breakout": 160,
+            "volume": 4,
+            "cost_adjusted_reward_risk": 9,
+            "gap_or_chasing": 9
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend": 289,
+            "no_breakout": 42,
+            "gap_or_chasing": 1,
+            "cost_adjusted_reward_risk": 3
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    },
+    "corrected": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 475,
+            "net_reward_risk": 4,
+            "breakout_volume_or_gap": 192
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "breakout_volume_or_gap": 289,
+            "net_reward_risk": 18,
+            "trend_or_regime": 364
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 521,
+            "breakout_volume_or_gap": 142,
+            "net_reward_risk": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 512,
+            "breakout_volume_or_gap": 153,
+            "net_reward_risk": 6
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 489,
+            "breakout_volume_or_gap": 173,
+            "net_reward_risk": 9
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 289,
+            "breakout_volume_or_gap": 43,
+            "net_reward_risk": 3
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    },
+    "dynamic_cost": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 475,
+            "net_reward_risk": 4,
+            "breakout_volume_or_gap": 192
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "breakout_volume_or_gap": 289,
+            "net_reward_risk": 18,
+            "trend_or_regime": 364
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 521,
+            "breakout_volume_or_gap": 142,
+            "net_reward_risk": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 512,
+            "breakout_volume_or_gap": 153,
+            "net_reward_risk": 6
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 489,
+            "breakout_volume_or_gap": 173,
+            "net_reward_risk": 9
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 289,
+            "breakout_volume_or_gap": 43,
+            "net_reward_risk": 3
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    },
+    "adx": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 558,
+            "breakout_volume_or_gap": 111,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "breakout_volume_or_gap": 227,
+            "net_reward_risk": 16,
+            "trend_or_regime": 428
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 551,
+            "breakout_volume_or_gap": 112,
+            "net_reward_risk": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 576,
+            "breakout_volume_or_gap": 90,
+            "net_reward_risk": 5
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 541,
+            "breakout_volume_or_gap": 122,
+            "net_reward_risk": 8
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 308,
+            "breakout_volume_or_gap": 25,
+            "net_reward_risk": 2
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    },
+    "session": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 558,
+            "session": 105,
+            "breakout_volume_or_gap": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "session": 227,
+            "net_reward_risk": 1,
+            "breakout_volume_or_gap": 15,
+            "trend_or_regime": 428
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 551,
+            "session": 112,
+            "breakout_volume_or_gap": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 576,
+            "session": 89,
+            "breakout_volume_or_gap": 6
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 541,
+            "session": 120,
+            "breakout_volume_or_gap": 9,
+            "net_reward_risk": 1
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 308,
+            "session": 25,
+            "net_reward_risk": 1,
+            "breakout_volume_or_gap": 1
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    },
+    "mtf": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "breakout_volume_or_gap": 69,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "breakout_volume_or_gap": 197,
+            "net_reward_risk": 15,
+            "trend_or_regime": 459
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 554,
+            "breakout_volume_or_gap": 109,
+            "net_reward_risk": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "breakout_volume_or_gap": 66,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 588,
+            "breakout_volume_or_gap": 79,
+            "net_reward_risk": 4
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 313,
+            "breakout_volume_or_gap": 20,
+            "net_reward_risk": 2
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    },
+    "session_and_mtf": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "session": 67,
+            "breakout_volume_or_gap": 4
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "session": 198,
+            "net_reward_risk": 1,
+            "breakout_volume_or_gap": 13,
+            "trend_or_regime": 459
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 554,
+            "session": 109,
+            "breakout_volume_or_gap": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "session": 64,
+            "breakout_volume_or_gap": 4
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 588,
+            "session": 75,
+            "breakout_volume_or_gap": 8
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 313,
+            "session": 20,
+            "net_reward_risk": 1,
+            "breakout_volume_or_gap": 1
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    },
+    "breakeven": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "breakout_volume_or_gap": 69,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "breakout_volume_or_gap": 197,
+            "net_reward_risk": 15,
+            "trend_or_regime": 459
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 554,
+            "breakout_volume_or_gap": 109,
+            "net_reward_risk": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "breakout_volume_or_gap": 66,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 588,
+            "breakout_volume_or_gap": 79,
+            "net_reward_risk": 4
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 313,
+            "breakout_volume_or_gap": 20,
+            "net_reward_risk": 2
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    },
+    "partial": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "breakout_volume_or_gap": 69,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "breakout_volume_or_gap": 197,
+            "net_reward_risk": 15,
+            "trend_or_regime": 459
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 554,
+            "breakout_volume_or_gap": 109,
+            "net_reward_risk": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "breakout_volume_or_gap": 66,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 588,
+            "breakout_volume_or_gap": 79,
+            "net_reward_risk": 4
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 313,
+            "breakout_volume_or_gap": 20,
+            "net_reward_risk": 2
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    },
+    "trailing_and_hold": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "breakout_volume_or_gap": 69,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "breakout_volume_or_gap": 197,
+            "net_reward_risk": 15,
+            "trend_or_regime": 459
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 554,
+            "breakout_volume_or_gap": 109,
+            "net_reward_risk": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "breakout_volume_or_gap": 66,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 588,
+            "breakout_volume_or_gap": 79,
+            "net_reward_risk": 4
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 313,
+            "breakout_volume_or_gap": 20,
+            "net_reward_risk": 2
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    },
+    "circuit": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "breakout_volume_or_gap": 69,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "breakout_volume_or_gap": 197,
+            "net_reward_risk": 15,
+            "trend_or_regime": 459
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 554,
+            "breakout_volume_or_gap": 109,
+            "net_reward_risk": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "breakout_volume_or_gap": 66,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 588,
+            "breakout_volume_or_gap": 79,
+            "net_reward_risk": 4
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 313,
+            "breakout_volume_or_gap": 20,
+            "net_reward_risk": 2
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    },
+    "higher_cost_stress": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "breakout_volume_or_gap": 69,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "breakout_volume_or_gap": 197,
+            "net_reward_risk": 15,
+            "trend_or_regime": 459
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 554,
+            "breakout_volume_or_gap": 109,
+            "net_reward_risk": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "breakout_volume_or_gap": 66,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 588,
+            "breakout_volume_or_gap": 79,
+            "net_reward_risk": 4
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 313,
+            "breakout_volume_or_gap": 20,
+            "net_reward_risk": 2
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    },
+    "corrected_6atr": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 1,
+          "net_return_pct": -0.07549077021201667,
+          "win_rate_pct": 0.0,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": -7.549077021203221,
+          "profit_factor": 0.0,
+          "expectancy_usdt": -7.549077021203221,
+          "sharpe": -1.5057999141671015,
+          "sortino": -2.0109321955585693,
+          "calmar": -5.0249730340879095,
+          "max_drawdown_pct": 0.1949498854323939,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 475,
+            "entry": 1,
+            "open_exit": 1,
+            "breakout_volume_or_gap": 180,
+            "net_reward_risk": 3
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 7,
+          "net_return_pct": -0.920285447124991,
+          "win_rate_pct": 28.571428571428573,
+          "avg_win_usdt": 21.563221935910946,
+          "avg_loss_usdt": -27.0171031054197,
+          "profit_factor": 0.31925290956283625,
+          "expectancy_usdt": -13.137010236468086,
+          "sharpe": -5.087330731229393,
+          "sortino": -6.078738546916088,
+          "calmar": -11.647259656676024,
+          "max_drawdown_pct": 0.9748362626035179,
+          "max_loss_streak": 3,
+          "decisions": {
+            "breakout_volume_or_gap": 253,
+            "net_reward_risk": 6,
+            "entry": 7,
+            "stop": 4,
+            "trend_or_regime": 363,
+            "target": 1,
+            "open_exit": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 4,
+          "net_return_pct": -0.27808431065735606,
+          "win_rate_pct": 50.0,
+          "avg_win_usdt": 13.027883082632513,
+          "avg_loss_usdt": -26.793740340853848,
+          "profit_factor": 0.4862286085070476,
+          "expectancy_usdt": -6.882928629110667,
+          "sharpe": -2.2720789142380284,
+          "sortino": -2.820002608645372,
+          "calmar": -7.426228416948625,
+          "max_drawdown_pct": 0.4800525738631989,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 521,
+            "breakout_volume_or_gap": 111,
+            "entry": 4,
+            "stop": 2,
+            "open_exit": 2,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 1,
+          "net_return_pct": -0.23770159206606412,
+          "win_rate_pct": 0.0,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": -23.468183429238177,
+          "profit_factor": 0.0,
+          "expectancy_usdt": -23.468183429238177,
+          "sharpe": -3.6131899451498177,
+          "sortino": -3.610500558885746,
+          "calmar": -12.850865175155088,
+          "max_drawdown_pct": 0.23770159206606412,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 512,
+            "breakout_volume_or_gap": 153,
+            "net_reward_risk": 5,
+            "entry": 1,
+            "stop": 1
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 3,
+          "net_return_pct": -0.42861197851806754,
+          "win_rate_pct": 33.333333333333336,
+          "avg_win_usdt": 3.971267748441312,
+          "avg_loss_usdt": -23.09368504189449,
+          "profit_factor": 0.08598168159903877,
+          "expectancy_usdt": -14.072034111782555,
+          "sharpe": -4.958275258752898,
+          "sortino": -5.744783226516354,
+          "calmar": -12.704725519477694,
+          "max_drawdown_pct": 0.42861197851805644,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 489,
+            "breakout_volume_or_gap": 149,
+            "net_reward_risk": 3,
+            "entry": 3,
+            "open_exit": 2,
+            "stop": 1
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 2,
+          "net_return_pct": -0.4261496644031193,
+          "win_rate_pct": 0.0,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": -20.896836563154633,
+          "profit_factor": 0.0,
+          "expectancy_usdt": -20.896836563154633,
+          "sharpe": -5.111466200365826,
+          "sortino": -6.277994894937031,
+          "calmar": -16.067127564677836,
+          "max_drawdown_pct": 0.6557868928707467,
+          "max_loss_streak": 2,
+          "decisions": {
+            "trend_or_regime": 289,
+            "breakout_volume_or_gap": 32,
+            "entry": 2,
+            "stop": 1,
+            "open_exit": 1
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 18,
+        "net_return_pct": -2.3451782208381955,
+        "win_rate_pct": 27.77777777777778,
+        "avg_win_usdt": 14.630695557105646,
+        "avg_loss_usdt": -23.667023066872755,
+        "profit_factor": 0.2377650363117822,
+        "expectancy_usdt": -13.028767893545423,
+        "sharpe": -3.661137454642992,
+        "sortino": -4.376291966829674,
+        "calmar": -2.1278233671268,
+        "max_drawdown_pct": 2.5703897853632696,
+        "max_loss_streak": 4
+      }
+    },
+    "dynamic_cost_6atr": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 475,
+            "net_reward_risk": 4,
+            "breakout_volume_or_gap": 192
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 3,
+          "net_return_pct": -0.24976783132335534,
+          "win_rate_pct": 33.333333333333336,
+          "avg_win_usdt": 36.15642254628826,
+          "avg_loss_usdt": -30.566602839310693,
+          "profit_factor": 0.5914367183092504,
+          "expectancy_usdt": -8.325594377444375,
+          "sharpe": -1.9486927573673918,
+          "sortino": -2.4419650107219963,
+          "calmar": -5.01171367897092,
+          "max_drawdown_pct": 0.6399827950792192,
+          "max_loss_streak": 2,
+          "decisions": {
+            "breakout_volume_or_gap": 273,
+            "net_reward_risk": 10,
+            "trend_or_regime": 363,
+            "entry": 3,
+            "target": 1,
+            "stop": 1,
+            "open_exit": 1
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 4,
+          "net_return_pct": -0.8024798158009272,
+          "win_rate_pct": 25.0,
+          "avg_win_usdt": 2.089192810633326,
+          "avg_loss_usdt": -27.378913582486863,
+          "profit_factor": 0.02543554555027699,
+          "expectancy_usdt": -20.011886984206814,
+          "sharpe": -6.8223291571455436,
+          "sortino": -7.372886623564325,
+          "calmar": -10.018260477328981,
+          "max_drawdown_pct": 0.9952162704828127,
+          "max_loss_streak": 3,
+          "decisions": {
+            "trend_or_regime": 521,
+            "breakout_volume_or_gap": 110,
+            "entry": 4,
+            "stop": 2,
+            "net_reward_risk": 3,
+            "open_exit": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 512,
+            "breakout_volume_or_gap": 153,
+            "net_reward_risk": 6
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 3,
+          "net_return_pct": -0.5249059379539345,
+          "win_rate_pct": 33.333333333333336,
+          "avg_win_usdt": 0.040588134236060544,
+          "avg_loss_usdt": -25.98995148977522,
+          "profit_factor": 0.0007808428240435239,
+          "expectancy_usdt": -17.313104948438127,
+          "sharpe": -5.415374670174323,
+          "sortino": -5.869243450512403,
+          "calmar": -12.631788199852359,
+          "max_drawdown_pct": 0.5249059379539345,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 489,
+            "breakout_volume_or_gap": 158,
+            "net_reward_risk": 4,
+            "entry": 3,
+            "stop": 2,
+            "open_exit": 1
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 1,
+          "net_return_pct": -0.21857214960663285,
+          "win_rate_pct": 0.0,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": -21.514136145685853,
+          "profit_factor": 0.0,
+          "expectancy_usdt": -21.514136145685853,
+          "sharpe": -3.3802794858640826,
+          "sortino": -5.09181922123032,
+          "calmar": -12.728874307304604,
+          "max_drawdown_pct": 0.43562816040578767,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 289,
+            "breakout_volume_or_gap": 32,
+            "net_reward_risk": 1,
+            "entry": 1,
+            "open_exit": 1
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 11,
+        "net_return_pct": -1.7847778206015574,
+        "win_rate_pct": 27.272727272727273,
+        "avg_win_usdt": 12.762067830385883,
+        "avg_loss_usdt": -27.095498193914782,
+        "profit_factor": 0.17662622042024365,
+        "expectancy_usdt": -16.225252914560055,
+        "sharpe": -3.496589487348766,
+        "sortino": -4.156646504744155,
+        "calmar": -1.776979582879328,
+        "max_drawdown_pct": 2.3514889238668957,
+        "max_loss_streak": 5
+      }
+    },
+    "adx_6atr": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 558,
+            "breakout_volume_or_gap": 111,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 3,
+          "net_return_pct": -0.24976783132335534,
+          "win_rate_pct": 33.333333333333336,
+          "avg_win_usdt": 36.15642254628826,
+          "avg_loss_usdt": -30.566602839310693,
+          "profit_factor": 0.5914367183092504,
+          "expectancy_usdt": -8.325594377444375,
+          "sharpe": -1.9486927573673918,
+          "sortino": -2.4419650107219963,
+          "calmar": -5.01171367897092,
+          "max_drawdown_pct": 0.6399827950792192,
+          "max_loss_streak": 2,
+          "decisions": {
+            "breakout_volume_or_gap": 211,
+            "net_reward_risk": 8,
+            "trend_or_regime": 427,
+            "entry": 3,
+            "target": 1,
+            "stop": 1,
+            "open_exit": 1
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 4,
+          "net_return_pct": -0.8024798158009272,
+          "win_rate_pct": 25.0,
+          "avg_win_usdt": 2.089192810633326,
+          "avg_loss_usdt": -27.378913582486863,
+          "profit_factor": 0.02543554555027699,
+          "expectancy_usdt": -20.011886984206814,
+          "sharpe": -6.8223291571455436,
+          "sortino": -7.372886623564325,
+          "calmar": -10.018260477328981,
+          "max_drawdown_pct": 0.9952162704828127,
+          "max_loss_streak": 3,
+          "decisions": {
+            "trend_or_regime": 551,
+            "breakout_volume_or_gap": 80,
+            "entry": 4,
+            "stop": 2,
+            "net_reward_risk": 3,
+            "open_exit": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 576,
+            "breakout_volume_or_gap": 90,
+            "net_reward_risk": 5
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 3,
+          "net_return_pct": -0.5249059379539345,
+          "win_rate_pct": 33.333333333333336,
+          "avg_win_usdt": 0.040588134236060544,
+          "avg_loss_usdt": -25.98995148977522,
+          "profit_factor": 0.0007808428240435239,
+          "expectancy_usdt": -17.313104948438127,
+          "sharpe": -5.415374670174323,
+          "sortino": -5.869243450512403,
+          "calmar": -12.631788199852359,
+          "max_drawdown_pct": 0.5249059379539345,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 541,
+            "breakout_volume_or_gap": 107,
+            "net_reward_risk": 3,
+            "entry": 3,
+            "stop": 2,
+            "open_exit": 1
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 1,
+          "net_return_pct": -0.21857214960663285,
+          "win_rate_pct": 0.0,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": -21.514136145685853,
+          "profit_factor": 0.0,
+          "expectancy_usdt": -21.514136145685853,
+          "sharpe": -3.3802794858640826,
+          "sortino": -5.09181922123032,
+          "calmar": -12.728874307304604,
+          "max_drawdown_pct": 0.43562816040578767,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 308,
+            "breakout_volume_or_gap": 14,
+            "entry": 1,
+            "open_exit": 1
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 11,
+        "net_return_pct": -1.7847778206015574,
+        "win_rate_pct": 27.272727272727273,
+        "avg_win_usdt": 12.762067830385883,
+        "avg_loss_usdt": -27.095498193914782,
+        "profit_factor": 0.17662622042024365,
+        "expectancy_usdt": -16.225252914560055,
+        "sharpe": -3.496589487348766,
+        "sortino": -4.156646504744155,
+        "calmar": -1.776979582879328,
+        "max_drawdown_pct": 2.3514889238668957,
+        "max_loss_streak": 5
+      }
+    },
+    "session_6atr": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 558,
+            "session": 105,
+            "breakout_volume_or_gap": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "session": 227,
+            "net_reward_risk": 1,
+            "breakout_volume_or_gap": 15,
+            "trend_or_regime": 428
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 551,
+            "session": 112,
+            "breakout_volume_or_gap": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 576,
+            "session": 89,
+            "breakout_volume_or_gap": 6
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 541,
+            "session": 120,
+            "breakout_volume_or_gap": 9,
+            "net_reward_risk": 1
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 1,
+          "net_return_pct": -0.422142400525638,
+          "win_rate_pct": 0.0,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": -42.21424005256262,
+          "profit_factor": 0.0,
+          "expectancy_usdt": -42.21424005256262,
+          "sharpe": -8.597457630671329,
+          "sortino": -8.579754671613243,
+          "calmar": -24.7373808151898,
+          "max_drawdown_pct": 0.4221424005256269,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 308,
+            "session": 21,
+            "entry": 1,
+            "stop": 1
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 1,
+        "net_return_pct": -0.422142400525638,
+        "win_rate_pct": 0.0,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": -42.21424005256262,
+        "profit_factor": 0.0,
+        "expectancy_usdt": -42.21424005256262,
+        "sharpe": -2.5823455431850006,
+        "sortino": -2.586893367185458,
+        "calmar": -2.3632791463553424,
+        "max_drawdown_pct": 0.4221424005256269,
+        "max_loss_streak": 1
+      }
+    },
+    "mtf_6atr": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "breakout_volume_or_gap": 69,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 3,
+          "net_return_pct": -0.24976783132335534,
+          "win_rate_pct": 33.333333333333336,
+          "avg_win_usdt": 36.15642254628826,
+          "avg_loss_usdt": -30.566602839310693,
+          "profit_factor": 0.5914367183092504,
+          "expectancy_usdt": -8.325594377444375,
+          "sharpe": -1.9486927573673918,
+          "sortino": -2.4419650107219963,
+          "calmar": -5.01171367897092,
+          "max_drawdown_pct": 0.6399827950792192,
+          "max_loss_streak": 2,
+          "decisions": {
+            "breakout_volume_or_gap": 181,
+            "net_reward_risk": 7,
+            "trend_or_regime": 458,
+            "entry": 3,
+            "target": 1,
+            "stop": 1,
+            "open_exit": 1
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 4,
+          "net_return_pct": -0.8024798158009272,
+          "win_rate_pct": 25.0,
+          "avg_win_usdt": 2.089192810633326,
+          "avg_loss_usdt": -27.378913582486863,
+          "profit_factor": 0.02543554555027699,
+          "expectancy_usdt": -20.011886984206814,
+          "sharpe": -6.8223291571455436,
+          "sortino": -7.372886623564325,
+          "calmar": -10.018260477328981,
+          "max_drawdown_pct": 0.9952162704828127,
+          "max_loss_streak": 3,
+          "decisions": {
+            "trend_or_regime": 554,
+            "breakout_volume_or_gap": 77,
+            "entry": 4,
+            "stop": 2,
+            "net_reward_risk": 3,
+            "open_exit": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "breakout_volume_or_gap": 66,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 2,
+          "net_return_pct": -0.25636544180963616,
+          "win_rate_pct": 50.0,
+          "avg_win_usdt": 0.04069770495633074,
+          "avg_loss_usdt": -25.407995795566464,
+          "profit_factor": 0.0016017676200746314,
+          "expectancy_usdt": -12.683649045305067,
+          "sharpe": -3.4410055465148948,
+          "sortino": -3.9914422477218015,
+          "calmar": -12.404466656180523,
+          "max_drawdown_pct": 0.2652940991862196,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 588,
+            "breakout_volume_or_gap": 66,
+            "entry": 2,
+            "open_exit": 1,
+            "stop": 1
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 1,
+          "net_return_pct": -0.21857214960662175,
+          "win_rate_pct": 0.0,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": -21.572215173900442,
+          "profit_factor": 0.0,
+          "expectancy_usdt": -21.572215173900442,
+          "sharpe": -3.3802794858639102,
+          "sortino": -5.091819221230014,
+          "calmar": -12.728874307303975,
+          "max_drawdown_pct": 0.43562816040578767,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 313,
+            "breakout_volume_or_gap": 9,
+            "entry": 1,
+            "open_exit": 1
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 10,
+        "net_return_pct": -1.5196384433366905,
+        "win_rate_pct": 30.0,
+        "avg_win_usdt": 12.762104353959305,
+        "avg_loss_usdt": -27.17859391364984,
+        "profit_factor": 0.20124195210139506,
+        "expectancy_usdt": -15.196384433367097,
+        "sharpe": -3.1004715105041707,
+        "sortino": -3.755631284542504,
+        "calmar": -1.7071459855932758,
+        "max_drawdown_pct": 2.087879425837369,
+        "max_loss_streak": 5
+      }
+    },
+    "session_and_mtf_6atr": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "session": 67,
+            "breakout_volume_or_gap": 4
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "session": 198,
+            "net_reward_risk": 1,
+            "breakout_volume_or_gap": 13,
+            "trend_or_regime": 459
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 554,
+            "session": 109,
+            "breakout_volume_or_gap": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "session": 64,
+            "breakout_volume_or_gap": 4
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 588,
+            "session": 75,
+            "breakout_volume_or_gap": 8
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 1,
+          "net_return_pct": -0.422142400525638,
+          "win_rate_pct": 0.0,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": -42.21424005256262,
+          "profit_factor": 0.0,
+          "expectancy_usdt": -42.21424005256262,
+          "sharpe": -8.597457630671329,
+          "sortino": -8.579754671613243,
+          "calmar": -24.7373808151898,
+          "max_drawdown_pct": 0.4221424005256269,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 313,
+            "session": 16,
+            "entry": 1,
+            "stop": 1
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 1,
+        "net_return_pct": -0.422142400525638,
+        "win_rate_pct": 0.0,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": -42.21424005256262,
+        "profit_factor": 0.0,
+        "expectancy_usdt": -42.21424005256262,
+        "sharpe": -2.5823455431850006,
+        "sortino": -2.586893367185458,
+        "calmar": -2.3632791463553424,
+        "max_drawdown_pct": 0.4221424005256269,
+        "max_loss_streak": 1
+      }
+    },
+    "breakeven_6atr": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "breakout_volume_or_gap": 69,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 3,
+          "net_return_pct": -0.24976783132335534,
+          "win_rate_pct": 33.333333333333336,
+          "avg_win_usdt": 36.15642254628826,
+          "avg_loss_usdt": -30.566602839310693,
+          "profit_factor": 0.5914367183092504,
+          "expectancy_usdt": -8.325594377444375,
+          "sharpe": -1.9486927573673918,
+          "sortino": -2.4419650107219963,
+          "calmar": -5.01171367897092,
+          "max_drawdown_pct": 0.6399827950792192,
+          "max_loss_streak": 2,
+          "decisions": {
+            "breakout_volume_or_gap": 181,
+            "net_reward_risk": 7,
+            "trend_or_regime": 458,
+            "entry": 3,
+            "target": 1,
+            "stop": 1,
+            "open_exit": 1
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 4,
+          "net_return_pct": -0.8024798158009272,
+          "win_rate_pct": 25.0,
+          "avg_win_usdt": 2.089192810633326,
+          "avg_loss_usdt": -27.378913582486863,
+          "profit_factor": 0.02543554555027699,
+          "expectancy_usdt": -20.011886984206814,
+          "sharpe": -6.8223291571455436,
+          "sortino": -7.372886623564325,
+          "calmar": -10.018260477328981,
+          "max_drawdown_pct": 0.9952162704828127,
+          "max_loss_streak": 3,
+          "decisions": {
+            "trend_or_regime": 554,
+            "breakout_volume_or_gap": 77,
+            "entry": 4,
+            "stop": 2,
+            "net_reward_risk": 3,
+            "open_exit": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "breakout_volume_or_gap": 66,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 2,
+          "net_return_pct": -0.25636544180963616,
+          "win_rate_pct": 50.0,
+          "avg_win_usdt": 0.04069770495633074,
+          "avg_loss_usdt": -25.407995795566464,
+          "profit_factor": 0.0016017676200746314,
+          "expectancy_usdt": -12.683649045305067,
+          "sharpe": -3.4410055465148948,
+          "sortino": -3.9914422477218015,
+          "calmar": -12.404466656180523,
+          "max_drawdown_pct": 0.2652940991862196,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 588,
+            "breakout_volume_or_gap": 66,
+            "entry": 2,
+            "open_exit": 1,
+            "stop": 1
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 1,
+          "net_return_pct": -0.21857214960662175,
+          "win_rate_pct": 0.0,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": -21.572215173900442,
+          "profit_factor": 0.0,
+          "expectancy_usdt": -21.572215173900442,
+          "sharpe": -3.3802794858639102,
+          "sortino": -5.091819221230014,
+          "calmar": -12.728874307303975,
+          "max_drawdown_pct": 0.43562816040578767,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 313,
+            "breakout_volume_or_gap": 9,
+            "entry": 1,
+            "open_exit": 1
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 10,
+        "net_return_pct": -1.5196384433366905,
+        "win_rate_pct": 30.0,
+        "avg_win_usdt": 12.762104353959305,
+        "avg_loss_usdt": -27.17859391364984,
+        "profit_factor": 0.20124195210139506,
+        "expectancy_usdt": -15.196384433367097,
+        "sharpe": -3.1004715105041707,
+        "sortino": -3.755631284542504,
+        "calmar": -1.7071459855932758,
+        "max_drawdown_pct": 2.087879425837369,
+        "max_loss_streak": 5
+      }
+    },
+    "partial_6atr": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "breakout_volume_or_gap": 69,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 3,
+          "net_return_pct": -0.3142675716560239,
+          "win_rate_pct": 33.333333333333336,
+          "avg_win_usdt": 29.666919022150964,
+          "avg_loss_usdt": -30.546838093874783,
+          "profit_factor": 0.4855972151844374,
+          "expectancy_usdt": -10.475585721866201,
+          "sharpe": -2.580312781151062,
+          "sortino": -3.084453992828213,
+          "calmar": -6.281596038753291,
+          "max_drawdown_pct": 0.6399827950792192,
+          "max_loss_streak": 2,
+          "decisions": {
+            "breakout_volume_or_gap": 181,
+            "net_reward_risk": 7,
+            "trend_or_regime": 458,
+            "entry": 3,
+            "partial": 1,
+            "target": 1,
+            "stop": 1,
+            "open_exit": 1
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 4,
+          "net_return_pct": -0.6984219025002902,
+          "win_rate_pct": 25.0,
+          "avg_win_usdt": 12.460931214929746,
+          "avg_loss_usdt": -27.361210036557527,
+          "profit_factor": 0.15180775019672738,
+          "expectancy_usdt": -17.405674723685706,
+          "sharpe": -5.844019329158286,
+          "sortino": -6.496747731329745,
+          "calmar": -8.773399671769173,
+          "max_drawdown_pct": 0.9952162704828016,
+          "max_loss_streak": 3,
+          "decisions": {
+            "trend_or_regime": 554,
+            "breakout_volume_or_gap": 77,
+            "entry": 4,
+            "stop": 2,
+            "net_reward_risk": 3,
+            "open_exit": 2,
+            "partial": 1
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "breakout_volume_or_gap": 66,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 2,
+          "net_return_pct": -0.25636544180962506,
+          "win_rate_pct": 50.0,
+          "avg_win_usdt": 0.040714053484690975,
+          "avg_loss_usdt": -25.41820234997258,
+          "profit_factor": 0.001601767620074631,
+          "expectancy_usdt": -12.688744148243945,
+          "sharpe": -3.4410055465146145,
+          "sortino": -3.99144224772156,
+          "calmar": -12.404466656180514,
+          "max_drawdown_pct": 0.2652940991862085,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 588,
+            "breakout_volume_or_gap": 66,
+            "entry": 2,
+            "open_exit": 1,
+            "stop": 1
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 1,
+          "net_return_pct": -0.21857214960659954,
+          "win_rate_pct": 0.0,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": -21.58088087069937,
+          "profit_factor": 0.0,
+          "expectancy_usdt": -21.58088087069937,
+          "sharpe": -3.3802794858635057,
+          "sortino": -5.091819221229375,
+          "calmar": -12.728874307303043,
+          "max_drawdown_pct": 0.43562816040577657,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 313,
+            "breakout_volume_or_gap": 9,
+            "entry": 1,
+            "open_exit": 1
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 10,
+        "net_return_pct": -1.4800782522752631,
+        "win_rate_pct": 30.0,
+        "avg_win_usdt": 14.056188096855134,
+        "avg_loss_usdt": -27.168055645442013,
+        "profit_factor": 0.22173396180998234,
+        "expectancy_usdt": -14.80078252275287,
+        "sharpe": -3.0582428728716544,
+        "sortino": -3.678984479203946,
+        "calmar": -1.7492072907013416,
+        "max_drawdown_pct": 1.9851698930298145,
+        "max_loss_streak": 5
+      }
+    },
+    "trailing_and_hold_6atr": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "breakout_volume_or_gap": 69,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 3,
+          "net_return_pct": -0.2533844147641018,
+          "win_rate_pct": 33.333333333333336,
+          "avg_win_usdt": 29.666919022150964,
+          "avg_loss_usdt": -27.50268024927899,
+          "profit_factor": 0.539345961070989,
+          "expectancy_usdt": -8.446147158802336,
+          "sharpe": -2.1738902201550316,
+          "sortino": -2.6528940697752668,
+          "calmar": -5.6581216573204545,
+          "max_drawdown_pct": 0.574951835474613,
+          "max_loss_streak": 2,
+          "decisions": {
+            "breakout_volume_or_gap": 181,
+            "net_reward_risk": 7,
+            "trend_or_regime": 459,
+            "entry": 3,
+            "partial": 1,
+            "target": 1,
+            "stop": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 4,
+          "net_return_pct": -0.7747972811713577,
+          "win_rate_pct": 25.0,
+          "avg_win_usdt": 9.064103836925995,
+          "avg_loss_usdt": -28.782503466137168,
+          "profit_factor": 0.10497238189154257,
+          "expectancy_usdt": -19.320851640371377,
+          "sharpe": -6.454964503313153,
+          "sortino": -7.1671578327038095,
+          "calmar": -9.294765457626267,
+          "max_drawdown_pct": 1.0373876124982195,
+          "max_loss_streak": 3,
+          "decisions": {
+            "trend_or_regime": 554,
+            "breakout_volume_or_gap": 72,
+            "entry": 4,
+            "stop": 3,
+            "net_reward_risk": 3,
+            "partial": 1,
+            "stop_gap": 1
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "breakout_volume_or_gap": 66,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 2,
+          "net_return_pct": 0.11698234640242777,
+          "win_rate_pct": 50.0,
+          "avg_win_usdt": 37.08747710284315,
+          "avg_loss_usdt": -25.509291908356925,
+          "profit_factor": 1.453881089137295,
+          "expectancy_usdt": 5.789092597243114,
+          "sharpe": 1.192099434936784,
+          "sortino": 1.8303775036549497,
+          "calmar": 5.980823969730793,
+          "max_drawdown_pct": 0.25677568236508463,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 588,
+            "breakout_volume_or_gap": 59,
+            "entry": 2,
+            "partial": 1,
+            "open_exit": 1,
+            "stop": 1
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 1,
+          "net_return_pct": -0.3819321229306838,
+          "win_rate_pct": 0.0,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": -37.84548729877867,
+          "profit_factor": 0.0,
+          "expectancy_usdt": -37.84548729877867,
+          "sharpe": -9.645863772695996,
+          "sortino": -9.714828237347193,
+          "calmar": -24.859115084472663,
+          "max_drawdown_pct": 0.38195504852264195,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 313,
+            "breakout_volume_or_gap": 12,
+            "entry": 1,
+            "stop": 1
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 10,
+        "net_return_pct": -1.2888915014218072,
+        "win_rate_pct": 30.0,
+        "avg_win_usdt": 25.272833320640036,
+        "avg_loss_usdt": -29.24395001487215,
+        "profit_factor": 0.3703745313053139,
+        "expectancy_usdt": -12.888915014218496,
+        "sharpe": -2.7277582922001264,
+        "sortino": -3.2956929202699987,
+        "calmar": -1.9153156054912042,
+        "max_drawdown_pct": 1.5808933849090767,
+        "max_loss_streak": 5
+      }
+    },
+    "circuit_6atr": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "breakout_volume_or_gap": 69,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 3,
+          "net_return_pct": -0.246771220948383,
+          "win_rate_pct": 33.333333333333336,
+          "avg_win_usdt": 29.666919022150964,
+          "avg_loss_usdt": -27.172020558494744,
+          "profit_factor": 0.5459093290152146,
+          "expectancy_usdt": -8.225707364946174,
+          "sharpe": -2.1299552943607853,
+          "sortino": -2.607188938227616,
+          "calmar": -5.576569724117443,
+          "max_drawdown_pct": 0.5683599615569968,
+          "max_loss_streak": 2,
+          "decisions": {
+            "breakout_volume_or_gap": 181,
+            "net_reward_risk": 7,
+            "trend_or_regime": 459,
+            "entry": 3,
+            "partial": 1,
+            "target": 1,
+            "stop": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 4,
+          "net_return_pct": -0.7747972811713133,
+          "win_rate_pct": 25.0,
+          "avg_win_usdt": 9.064704786392676,
+          "avg_loss_usdt": -28.784411744155477,
+          "profit_factor": 0.10497238189154258,
+          "expectancy_usdt": -19.322132611518438,
+          "sharpe": -6.454964503312878,
+          "sortino": -7.1671578327036425,
+          "calmar": -9.294765457625859,
+          "max_drawdown_pct": 1.0373876124982084,
+          "max_loss_streak": 3,
+          "decisions": {
+            "trend_or_regime": 531,
+            "breakout_volume_or_gap": 71,
+            "entry": 4,
+            "stop": 3,
+            "net_reward_risk": 3,
+            "circuit": 24,
+            "partial": 1,
+            "stop_gap": 1
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "breakout_volume_or_gap": 66,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 2,
+          "net_return_pct": 0.11698234640238336,
+          "win_rate_pct": 50.0,
+          "avg_win_usdt": 37.089936000047615,
+          "avg_loss_usdt": -25.510983172672024,
+          "profit_factor": 1.4538810891372953,
+          "expectancy_usdt": 5.789476413687796,
+          "sharpe": 1.1920994349365936,
+          "sortino": 1.8303775036546028,
+          "calmar": 5.980823969728507,
+          "max_drawdown_pct": 0.25677568236508463,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 588,
+            "breakout_volume_or_gap": 59,
+            "entry": 2,
+            "partial": 1,
+            "open_exit": 1,
+            "stop": 1
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 1,
+          "net_return_pct": -0.2673332370307535,
+          "win_rate_pct": 0.0,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": -26.49169001288577,
+          "profit_factor": 0.0,
+          "expectancy_usdt": -26.49169001288577,
+          "sharpe": -9.644645727992824,
+          "sortino": -9.71349122206951,
+          "calmar": -25.21466165934852,
+          "max_drawdown_pct": 0.26734928378967515,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 313,
+            "breakout_volume_or_gap": 12,
+            "entry": 1,
+            "stop": 1
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 10,
+        "net_return_pct": -1.1687838972641917,
+        "win_rate_pct": 30.0,
+        "avg_win_usdt": 25.27385326953042,
+        "avg_loss_usdt": -27.528564219287674,
+        "profit_factor": 0.39346953640387144,
+        "expectancy_usdt": -11.687838972642245,
+        "sharpe": -2.527323606299913,
+        "sortino": -3.0839650409491175,
+        "calmar": -1.7463279779317864,
+        "max_drawdown_pct": 1.573599664209635,
+        "max_loss_streak": 5
+      }
+    },
+    "breakeven_1_5r_6atr": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "breakout_volume_or_gap": 69,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 3,
+          "net_return_pct": -0.24976783132335534,
+          "win_rate_pct": 33.333333333333336,
+          "avg_win_usdt": 36.15642254628826,
+          "avg_loss_usdt": -30.566602839310693,
+          "profit_factor": 0.5914367183092504,
+          "expectancy_usdt": -8.325594377444375,
+          "sharpe": -1.9486927573673918,
+          "sortino": -2.4419650107219963,
+          "calmar": -5.01171367897092,
+          "max_drawdown_pct": 0.6399827950792192,
+          "max_loss_streak": 2,
+          "decisions": {
+            "breakout_volume_or_gap": 181,
+            "net_reward_risk": 7,
+            "trend_or_regime": 458,
+            "entry": 3,
+            "target": 1,
+            "stop": 1,
+            "open_exit": 1
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 4,
+          "net_return_pct": -0.8024798158009272,
+          "win_rate_pct": 25.0,
+          "avg_win_usdt": 2.089192810633326,
+          "avg_loss_usdt": -27.378913582486863,
+          "profit_factor": 0.02543554555027699,
+          "expectancy_usdt": -20.011886984206814,
+          "sharpe": -6.8223291571455436,
+          "sortino": -7.372886623564325,
+          "calmar": -10.018260477328981,
+          "max_drawdown_pct": 0.9952162704828127,
+          "max_loss_streak": 3,
+          "decisions": {
+            "trend_or_regime": 554,
+            "breakout_volume_or_gap": 77,
+            "entry": 4,
+            "stop": 2,
+            "net_reward_risk": 3,
+            "open_exit": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "breakout_volume_or_gap": 66,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 2,
+          "net_return_pct": -0.25636544180963616,
+          "win_rate_pct": 50.0,
+          "avg_win_usdt": 0.04069770495633074,
+          "avg_loss_usdt": -25.407995795566464,
+          "profit_factor": 0.0016017676200746314,
+          "expectancy_usdt": -12.683649045305067,
+          "sharpe": -3.4410055465148948,
+          "sortino": -3.9914422477218015,
+          "calmar": -12.404466656180523,
+          "max_drawdown_pct": 0.2652940991862196,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 588,
+            "breakout_volume_or_gap": 66,
+            "entry": 2,
+            "open_exit": 1,
+            "stop": 1
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 1,
+          "net_return_pct": -0.21857214960662175,
+          "win_rate_pct": 0.0,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": -21.572215173900442,
+          "profit_factor": 0.0,
+          "expectancy_usdt": -21.572215173900442,
+          "sharpe": -3.3802794858639102,
+          "sortino": -5.091819221230014,
+          "calmar": -12.728874307303975,
+          "max_drawdown_pct": 0.43562816040578767,
+          "max_loss_streak": 1,
+          "decisions": {
+            "trend_or_regime": 313,
+            "breakout_volume_or_gap": 9,
+            "entry": 1,
+            "open_exit": 1
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 10,
+        "net_return_pct": -1.5196384433366905,
+        "win_rate_pct": 30.0,
+        "avg_win_usdt": 12.762104353959305,
+        "avg_loss_usdt": -27.17859391364984,
+        "profit_factor": 0.20124195210139506,
+        "expectancy_usdt": -15.196384433367097,
+        "sharpe": -3.1004715105041707,
+        "sortino": -3.755631284542504,
+        "calmar": -1.7071459855932758,
+        "max_drawdown_pct": 2.087879425837369,
+        "max_loss_streak": 5
+      }
+    },
+    "higher_cost_stress_6atr": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 600,
+            "breakout_volume_or_gap": 69,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "breakout_volume_or_gap": 197,
+            "net_reward_risk": 15,
+            "trend_or_regime": 459
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 554,
+            "breakout_volume_or_gap": 109,
+            "net_reward_risk": 8
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 603,
+            "breakout_volume_or_gap": 66,
+            "net_reward_risk": 2
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 588,
+            "breakout_volume_or_gap": 79,
+            "net_reward_risk": 4
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "trend_or_regime": 313,
+            "breakout_volume_or_gap": 20,
+            "net_reward_risk": 2
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    },
+    "walk_forward": {
+      "folds": [
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "no_training_plateau": 672
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "no_training_plateau": 672
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "no_training_plateau": 672
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "no_training_plateau": 672
+          }
+        },
+        {
+          "hours": 672,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "no_training_plateau": 672
+          }
+        },
+        {
+          "hours": 336,
+          "trades": 0,
+          "net_return_pct": 0.0,
+          "win_rate_pct": null,
+          "avg_win_usdt": null,
+          "avg_loss_usdt": null,
+          "profit_factor": null,
+          "expectancy_usdt": null,
+          "sharpe": null,
+          "sortino": null,
+          "calmar": null,
+          "max_drawdown_pct": 0.0,
+          "max_loss_streak": 0,
+          "decisions": {
+            "no_training_plateau": 336
+          }
+        }
+      ],
+      "total": {
+        "hours": 3696,
+        "trades": 0,
+        "net_return_pct": 0.0,
+        "win_rate_pct": null,
+        "avg_win_usdt": null,
+        "avg_loss_usdt": null,
+        "profit_factor": null,
+        "expectancy_usdt": null,
+        "sharpe": null,
+        "sortino": null,
+        "calmar": null,
+        "max_drawdown_pct": 0.0,
+        "max_loss_streak": 0
+      }
+    }
+  }
+}
