@@ -323,6 +323,71 @@ class ObservabilityTests(unittest.TestCase):
             gen.close()
 
 
+class SoakTests(unittest.TestCase):
+    def test_timed_command_closes_stream_and_database_and_exports(self):
+        import io
+        import sqlite3
+        from contextlib import redirect_stdout
+        from live.__main__ import main
+
+        now = 1_800_000_000
+        monotonic = [10.]
+        closed = []
+        f = Filters(D(".001"), D(".001"), D(5), D(".01"))
+
+        def feed(*args, deadline, stats):
+            self.assertEqual(deadline, 13.6)
+            stats["websocket_connections"] = 1
+            try:
+                yield Book(1,D(100),D(101),D(100),D(100))
+                monotonic[0] = deadline
+                yield Book(2,D(100),D(101),D(100),D(100))
+            finally:
+                closed.append("stream")
+
+        with tempfile.TemporaryDirectory() as folder:
+            db, csv = (Path(folder)/name for name in ("soak.sqlite3","soak.csv"))
+            state = State(db,"10000")
+            out = io.StringIO()
+            with patch("sys.argv",["live","--duration-hours",".001","--strategy","observe",
+                                  "--db",str(db),"--export-csv",str(csv)]), \
+                 patch("live.__main__.filters",return_value=f), \
+                 patch("live.__main__.State",return_value=state), \
+                 patch("live.__main__.events",side_effect=feed), \
+                 patch("live.__main__.time.monotonic",side_effect=lambda:monotonic[0]), \
+                 patch("live.__main__.healthy",return_value=True), redirect_stdout(out):
+                main()
+            report = json.loads(out.getvalue())
+            self.assertTrue(report["soak"]["completed"])
+            self.assertEqual(report["soak"]["book_tickers"],1)
+            self.assertEqual(report["soak"]["websocket_reconnections"],0)
+            self.assertEqual(report["soak"]["healthcheck"],"healthy")
+            self.assertEqual(closed,["stream"])
+            self.assertTrue(csv.is_file())
+            self.assertEqual(json.loads(csv.with_suffix(".json").read_text()),report)
+            with self.assertRaises(sqlite3.ProgrammingError):
+                state.db.execute("SELECT 1")
+
+    def test_deadline_bounds_idle_receive_without_counting_disconnect(self):
+        from live.stream import candle_at
+
+        now = [10.]
+        ws = Mock()
+
+        def idle(*, timeout):
+            self.assertAlmostEqual(timeout,2)
+            now[0] = 12.
+            raise TimeoutError()
+
+        ws.recv.side_effect = idle
+        stats = {}
+        with patch("live.stream.connect",return_value=nullcontext(ws)), \
+             patch("live.stream.backfill",return_value=[candle_at(0, rest_row(0)[1:6])]), \
+             patch("live.stream.time.monotonic",side_effect=lambda:now[0]):
+            self.assertEqual(len(list(events(deadline=12,stats=stats))),1)
+        self.assertEqual(stats,{"websocket_connections":1})
+
+
 class RiskTicketTests(unittest.TestCase):
     def test_bootstrap_deterministic_and_exhaustive(self):
         from live.timemachine import simulate
@@ -356,3 +421,83 @@ class RiskTicketTests(unittest.TestCase):
         changes = executor.on_book(Book(3,D(99),D("99.01"),D(1000),D(1000)),now+1)[2]
         self.assertEqual(changes[0]["ticket"],ticket)
         self.assertIn("dolum",message(changes[0]))
+
+
+class TenHourSoakTests(unittest.TestCase):
+    def test_existing_position_block_is_not_queued(self):
+        from live.notify import Notifier
+
+        url = "https://example.invalid/webhook"
+        with patch("live.notify.Thread"):
+            notifier = Notifier(url, "123:mock-token", "456")
+            routine = {"kind":"trade_ticket","risk_check":"BLOCK: existing_order_or_position"}
+            notifier.publish(routine)
+            self.assertTrue(notifier.queue.empty())
+            allowed = [
+                {"kind":"trade_ticket","risk_check":"PASS"},
+                {"kind":"trade_ticket","risk_check":"BLOCK: spread"},
+                {"kind":"trade_ticket","risk_check":"BLOCK: volatility"},
+                {"kind":"filled"},
+                {"kind":"stop"},
+                {"kind":"paper_heartbeat"},
+            ]
+            for event in allowed:
+                notifier.publish(event)
+                self.assertEqual(notifier.queue.get_nowait(),event)
+
+    def test_ten_hour_default_paths_and_duration(self):
+        import io
+        from contextlib import redirect_stdout
+        from live.__main__ import main
+
+        f = Filters(D(".001"),D(".001"),D(5),D(".01"))
+        clock = [10.]
+
+        def feed(*args, deadline, stats):
+            self.assertEqual(deadline,36010)
+            stats["websocket_connections"] = 1
+            yield Book(1,D(100),D(101),D(100),D(100))
+            clock[0] = deadline
+
+        with tempfile.TemporaryDirectory() as root:
+            folder = Path(root)
+            db = folder/"paper.sqlite3"
+            with patch("sys.argv",["live","--duration-hours","10","--db",str(db)]), \
+                 patch("live.__main__.Path",side_effect=lambda p:folder/p), \
+                 patch("live.__main__.time.monotonic",side_effect=lambda:clock[0]), \
+                 patch("live.__main__.filters",return_value=f), \
+                 patch("live.__main__.events",side_effect=feed), redirect_stdout(io.StringIO()):
+                main()
+            csv = folder/"paper_runs/soak-10h.csv"
+            self.assertTrue(csv.is_file())
+            report = json.loads(csv.with_suffix(".json").read_text())
+            self.assertTrue(report["soak"]["completed"])
+            self.assertEqual(report["soak"]["elapsed_seconds"],36000)
+            self.assertEqual(report["soak"]["book_tickers"],1)
+
+    def test_daily_close_includes_ticket_and_diagnostics_in_soak_report(self):
+        from types import SimpleNamespace
+        from live.__main__ import run
+        from live.strategy import DailySwing
+        from live.stream import candle_at
+
+        stamp_ms = 23*H
+        c = candle_at(stamp_ms,rest_row(23)[1:6])
+        book = Book(1,D(100),D("100.01"),D(100),D(100))
+        strategy = DailySwing("ema-1d")
+        engine = Mock()
+        ticket = {"kind":"trade_ticket","risk_check":"PASS","timemachine":{"p_target_pct":50}}
+        engine.submit.return_value = ticket
+        engine.on_book.return_value = D(10000),D(0),[]
+        engine.daily_heartbeat.return_value = None
+        stats = dict(warmup_candles=0,closed_1h_candles=0,backfilled_candles=0,utc_daily_closes=0,
+                     entry_signals=0,daily_decisions=[])
+        with patch.object(strategy,"view",return_value=SimpleNamespace(flags=[False,False,True],atr=3,up=True)), \
+             patch("live.__main__.diagnose",return_value=ticket["timemachine"]):
+            run([History((c,),False),book],engine,strategy,Mock(),clock=lambda:86400,
+                stats=stats,risk_overlay=True)
+        decision, = stats["daily_decisions"]
+        self.assertEqual(decision["closed_at_utc"],"1970-01-02T00:00:00+00:00")
+        self.assertTrue(decision["fresh_quote"])
+        self.assertTrue(decision["signal"]["entry"])
+        self.assertEqual(decision["trade_ticket"],ticket)

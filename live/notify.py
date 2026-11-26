@@ -64,6 +64,9 @@ class Notifier:
             Thread(target=self._worker, args=(url,), daemon=True).start()
 
     def publish(self, data: dict) -> None:
+        if (data.get("kind") == "trade_ticket"
+                and data.get("risk_check") == "BLOCK: existing_order_or_position"):
+            return
         if self.queue is not None:
             try:
                 self.queue.put_nowait(data)

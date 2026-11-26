@@ -123,3 +123,28 @@ Compose, her biri en fazla 10 MB olan üç log dosyası tutar. Sağlık kontrol�
 ### EMA 1D paper risk kapısı
 
 EMA paper sinyalleri %0,5 planlı risk, %25 pozisyon tavanı, %1 günlük giriş kilidi ve yedi kontrolle değerlendirilir. Açılışta Monte Carlo için 4.321 kapanmış saatlik mum istenir. `--mc-seed` varsayılanı 42. 180 günlük geçmiş kesintiliyse fiş Monte Carlo eksikliğini raporlar. Fişler ve dolumlar SQLite olay defterine yazılır ve yapılandırılmış bildirimlere gider. EMA kâr referansı bir satış emri oluşturmaz. [Yöntem ve parite](PAXG_EDGE_V3.md#ema-1d-risk-kapısı-ve-timemachine)
+
+### 10 saatlik canlı paper denemesi
+
+Günlük EMA sinyalini gözlemlemek için pencerenin 00:00 UTC kapanışını kapsadığından emin ol. Ayrı SQLite defteri ve yeni rapor yolları kullan. Aşağıdaki komut proje dizininden çalıştırılır ve 10.000 TL'lik sanal bütçeyi herkese açık USDT/TRY ask fiyatına göre, %0,10 varsayılan dönüşüm ücretiyle hesaplar.
+
+```sh
+PAPER_CASH_USDT="$(python3 -c 'from decimal import Decimal as D; from spot_data import get_json; q=get_json("ticker/bookTicker", symbol="USDTTRY"); print(D("9990")/D(q["askPrice"]))')" &&
+python3 -m live --mode paper --strategy ema-1d --duration-hours 10 \
+  --cash "$PAPER_CASH_USDT" --db paper_runs/soak-10h.sqlite3
+```
+
+Yerel bağımlılıklar için `python3 -m pip install -r requirements.txt`. Süre dolduğunda sonuç terminale ve `paper_runs/soak-10h.json` dosyasına yazılır. Olay dökümü `paper_runs/soak-10h.csv` dosyasına çıkar. Canlı kotasyonlar, kapalı mumlar, kopuş/yeniden bağlanma, sağlık kontrolü ve günlük kararlar JSON'dadır. Günlük kapanışta alış sinyali yoksa TimeMachine ve emir fişi oluşmaz. Aynı süreli çalıştırmayı Docker'da ayırmak için:
+
+```sh
+mkdir -p paper_runs
+docker compose build paper
+docker compose run -d --no-deps --name paxg-soak-10h --user "$(id -u):$(id -g)" \
+  -e PAPER_DB=/results/soak-10h.sqlite3 -v "$PWD/paper_runs:/results" paper \
+  --mode paper --strategy ema-1d --duration-hours 10 \
+  --cash "${PAPER_CASH_USDT:?yukarıdaki formülle hesapla}" \
+  --export-csv /results/soak-10h.csv
+docker logs -f paxg-soak-10h
+```
+
+`BLOCK: existing_order_or_position` fişleri SQLite ve CSV'de kalır. Telegram/webhook kuyruğuna girmez.

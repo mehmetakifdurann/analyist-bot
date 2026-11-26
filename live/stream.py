@@ -85,20 +85,34 @@ def backfill(after: int | None = None, limit: int = 250) -> list[Candle]:
 
 
 def events(url: str = URL, on_error: Callable[[dict], None] | None = None,
-           warmup_hours: int = 250) -> Iterator[Book | History]:
+           warmup_hours: int = 250, *, deadline: float | None = None,
+           stats: dict[str, int] | None = None) -> Iterator[Book | History]:
     candles: deque[Candle] = deque(maxlen=warmup_hours)
     delay = 1.
-    while True:
+
+    def remaining() -> float:
+        return float("inf") if deadline is None else deadline-time.monotonic()
+
+    def count(key: str) -> None:
+        if stats is not None:
+            stats[key] = stats.get(key, 0)+1
+
+    while remaining() > 0:
+        connected = False
         try:
-            with connect(url, open_timeout=10, close_timeout=3) as ws:
+            with connect(url, open_timeout=min(10, remaining()), close_timeout=3) as ws:
+                connected = True
+                count("websocket_connections")
                 rotate_at = time.monotonic()+ROTATE_AFTER
                 if candles:
                     candles.extend(backfill(stamp(candles[-1])))
                 else:
                     candles.extend(backfill(limit=warmup_hours))
                 yield History(tuple(candles), warmup=True)
-                while time.monotonic() < rotate_at:
-                    event = decode(ws.recv(timeout=45))
+                while remaining() > 0 and time.monotonic() < rotate_at:
+                    event = decode(ws.recv(timeout=min(45, remaining())))
+                    if remaining() <= 0:
+                        return
                     if event is None:
                         continue
                     delay = 1.
@@ -119,10 +133,16 @@ def events(url: str = URL, on_error: Callable[[dict], None] | None = None,
                     else:
                         candles.append(event)
                         yield History(tuple(candles), warmup=False)
+                if remaining() <= 0:
+                    return
+                count("websocket_rotations")
                 logging.info("Rotating Binance Spot connection before its 24h limit")
         except (OSError, TimeoutError, WebSocketException, ValueError, KeyError, ArithmeticError) as exc:
+            if remaining() <= 0:
+                return
+            count("websocket_disconnects" if connected else "websocket_connect_failures")
             logging.warning("Market stream reconnect in %.1fs (%s)", delay, type(exc).__name__)
             if on_error:
                 on_error({"kind": "paper_market_disconnect", "error": type(exc).__name__, "retry_seconds": delay})
-            time.sleep(delay+random.uniform(0, delay*.2))
+            time.sleep(max(0, min(remaining(), delay+random.uniform(0, delay*.2))))
             delay = min(delay*2, 60)
