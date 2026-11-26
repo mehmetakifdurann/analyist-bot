@@ -1,0 +1,8 @@
+*
+!Dockerfile
+!live/
+!live/*.py
+!spot_data.py
+!paxg_edge_v2.py
+!paxg_research.py
+!technical_paper.py

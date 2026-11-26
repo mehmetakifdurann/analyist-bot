@@ -101,3 +101,51 @@ class ExecutorTests(unittest.TestCase):
                 self.assertTrue(w["locked"])
                 self.assertIsNone(w["pending"])
             state.db.close()
+
+
+class DailySwingTests(unittest.TestCase):
+    def test_shared_daily_signal_uses_only_closed_utc_days(self):
+        from datetime import datetime, timedelta, timezone
+        from spot_data import Candle
+        from paxg_edge_v2 import resample, swing_view
+        from paxg_research import Bar
+        from live.strategy import DailySwing
+
+        start = datetime(2026, 1, 1, tzinfo=timezone.utc)
+        hours = [Candle(start+timedelta(hours=i),D(100+i//24),D(101+i//24),
+                        D(99+i//24),D(100+i//24),D(1)) for i in range(52*24)]
+        last = hours[-1]
+        hours[-1] = Candle(last.time,last.open,D(155),last.low,D(155),D(1))
+        strategy = DailySwing("donchian-1d")
+        raw = [Bar(c.time,*(float(x) for x in (c.open,c.high,c.low,c.close,c.volume))) for c in hours]
+        self.assertEqual(strategy.view(hours),swing_view(resample(raw,24)))
+        self.assertIsNone(strategy.view(hours[-250:]))
+        book = Book(1,D(154),D(155),D(20),D(20))
+        self.assertIsNone(strategy.on_close(hours[:-1],book))
+        self.assertIsNotNone(strategy.on_close(hours,book))
+
+    def test_trailing_stop_is_persistent_and_never_moves_down(self):
+        from datetime import datetime, timedelta, timezone
+        from spot_data import Candle
+
+        with tempfile.TemporaryDirectory() as root:
+            path = Path(root)/"trail.sqlite3"
+            state = State(path,"10000")
+            f = Filters(D(".001"),D(".001"),D("5"),D(".01"))
+            engine = PaperExecutor(state,f)
+            now = 1_800_000_000
+            book = Book(1,D(100),D(101),D(100),D(100))
+            engine.on_book(book,now)
+            engine.on_close(123,Intent(D(99),D(95),None),book,now)
+            engine.on_book(Book(2,D(98),D("98.5"),D(100),D(100)),now+1)
+            after = datetime.fromtimestamp(now, timezone.utc)+timedelta(hours=1)
+            fresh = Candle(after,D(100),D(108),D(100),D(106),D(1))
+            stale = Candle(after-timedelta(hours=2),D(100),D(200),D(100),D(106),D(1))
+            engine.trail((stale,fresh),D(2))
+            state.db.close()
+            state = State(path,"1")
+            engine = PaperExecutor(state,f)
+            engine.trail((fresh,),D(3))
+            with state.transaction() as w:
+                self.assertEqual(D(w["position"]["stop"]),D(102))
+            state.db.close()

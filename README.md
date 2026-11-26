@@ -51,3 +51,25 @@ python3 -m live --mode paper --max-books 3 --db smoke.sqlite3
 İsteğe bağlı ayarlar `.env.example` dosyasındadır. `PAPER_WEBHOOK_URL` bir HTTPS alıcısına sanal dolum, çıkış, bağlantı hatası ve UTC gün özeti gönderir. 7/24 çalışması için komutun açık bir makinede sürmesi gerekir.
 
 `--mode live` gerçek Binance hesabına bağlanan bir mod değildir ve açıklayıcı bir hata ile kapanır. Desteklenen mod `paper`dır ve halka açık veri için Binance anahtarı gerekmez.
+
+## V3 günlük trend ve Docker
+
+```sh
+python3 archive_data.py PAXGUSDT --end 2026-11-26
+python3 paxg_edge_v3.py data/training/PAXGUSDT_1h.csv > paper_runs/paxg-edge-v3.json
+python3 -m unittest -v
+python3 -m live --mode paper --strategy donchian-1d --db donchian.sqlite3
+python3 -m live --mode paper --strategy keltner-1d --db keltner.sqlite3
+```
+
+Her iki günlük strateji açılışta 1.344 kapanmış saatlik mumla 4H ve 1D geçmişi oluşturur. 250 saat yalnızca yaklaşık 10 gün sağlar ve günlük SMA50 için yetmez. Başlangıçta günlük sinyal hesaplanır ve loglanır. Yeni paper emirleri güncel bir günlük kapanıştan sonra değerlendirilir. Aktif stop ve hesap durumu SQLite'ta kalır.
+
+```sh
+docker build -t analyist-bot .
+docker volume create paxg-paper
+docker run -d --name paxg-paper --restart unless-stopped \
+  -v paxg-paper:/state analyist-bot --mode paper --strategy donchian-1d
+docker logs -f paxg-paper
+```
+
+Docker ve yeniden başlatma kuralı açık makinede paper sürecini çalıştırır. `--mode testnet` ve `--mode live` hesap bağlantısı açmadan hata verir. Bu dağıtım halka açık Binance Spot verisini okur ve yerel paper emirleri simüle eder. [V3 araştırma raporu](PAXG_EDGE_V3.md)

@@ -8,6 +8,7 @@ from decimal import ROUND_UP, Decimal as D
 from .risk import update
 from .state import State
 from .strategy import Intent
+from spot_data import Candle
 from .stream import Book
 
 MAKER, TAKER, SLIP = D(".001"), D(".001"), D(".0002")
@@ -33,22 +34,38 @@ class PaperExecutor:
             w["candle"] = candle
             if not intent or w["pending"] or w["position"] or w["locked"]:
                 return
-            if (not all(p.is_finite() and p > 0 for p in (intent.stop,intent.limit,intent.target))
+            if (not all(p.is_finite() and p > 0 for p in (intent.stop,intent.limit))
+                    or (intent.target is not None and (not intent.target.is_finite() or intent.target <= 0))
                     or not 0 < intent.ttl_seconds <= 86400):
                 return
             limit = intent.limit//self.filters.tick*self.filters.tick
             stop = intent.stop//self.filters.tick*self.filters.tick
-            target = (intent.target/self.filters.tick).to_integral_value(rounding=ROUND_UP)*self.filters.tick
-            if not 0 < stop < limit < target or limit >= book.ask:
+            target = ((intent.target/self.filters.tick).to_integral_value(rounding=ROUND_UP)*self.filters.tick
+                      if intent.target is not None else None)
+            if not 0 < stop < limit or (target is not None and target <= limit) or limit >= book.ask:
                 return
             budget = D(w["cash"])*D(".25")
             units = budget/(limit*(1+MAKER))//self.filters.step*self.filters.step
             if units < self.filters.minimum or units*stop < self.filters.notional:
                 return
             p = dict(id=f"PAXGUSDT:{candle}", units=str(units), limit=str(limit),
-                     stop=str(stop), target=str(target), expires=now+intent.ttl_seconds)
+                     stop=str(stop), target=str(target) if target is not None else None, expires=now+intent.ttl_seconds)
             w["pending"] = p
             self.state.event(p["id"],"submitted",p)
+
+    def trail(self, candles: tuple[Candle, ...], atr: D) -> None:
+        if not atr.is_finite() or atr <= 0:
+            return
+        with self.state.transaction() as w:
+            pos = w["position"]
+            if not pos or pos["target"] is not None:
+                return
+            # Hourly highs from before a fill or from the partial entry hour are excluded.
+            highs = [c.high for c in candles if c.time.timestamp() >= pos["filled_at"]]
+            peak = max(D(pos.get("peak", pos["limit"])), *highs) if highs else D(pos.get("peak", pos["limit"]))
+            stop = (peak-3*atr)//self.filters.tick*self.filters.tick
+            pos["peak"] = str(peak)
+            pos["stop"] = str(max(D(pos["stop"]),stop))
 
     def on_book(self, book: Book, now: int) -> tuple[D, D, list[dict]]:
         recorded = []
@@ -70,7 +87,7 @@ class PaperExecutor:
                     kind = "filled"
                     cost = units*limit*(1+MAKER)
                     w["cash"] = str(cash-cost)
-                    w["position"] = {**pending,"cost":str(cost)}
+                    w["position"] = {**pending,"cost":str(cost),"filled_at":now}
                 if kind:
                     detail = {"id":pending["id"],"kind":kind,"time":now}
                     self.state.event(pending["id"]+":"+kind,kind,detail)
@@ -79,9 +96,9 @@ class PaperExecutor:
             pos = w["position"]
             if pos:
                 units = D(pos["units"])
-                target = D(pos["target"])
+                target = D(pos["target"]) if pos["target"] is not None else None
                 reason = ("daily_limit" if w["locked"] else "stop" if book.bid <= D(pos["stop"])
-                          else "target" if book.bid > target*(1+PENETRATION) else None)
+                          else "target" if target is not None and book.bid > target*(1+PENETRATION) else None)
                 if reason and book.bid_qty >= units:
                     price = target*(1-MAKER) if reason == "target" else taker
                     proceeds = units*price

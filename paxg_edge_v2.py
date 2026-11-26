@@ -45,21 +45,37 @@ def views(bars: list[Bar], hours: int) -> dict[datetime, View]:
     if len(bars) < 51 or any(b.time-a.time != hours*HOUR for a,b in zip(bars,bars[1:])):
         raise ValueError("At least 51 continuous aggregate candles required")
     ema = mean(b.close for b in bars[:20])
-    out = {}
-    for i in range(20, len(bars)):
-        b = bars[i]
+    result = {}
+    for i, bar in enumerate(bars[20:],20):
         before = ema
-        ema += (b.close-ema)*2/21
-        if i < 50:
-            continue
-        atr = mean(max(y.high-y.low, abs(y.high-x.close), abs(y.low-x.close))
-                   for x,y in zip(bars[i-14:i],bars[i-13:i+1]))
-        up = ema > mean(x.close for x in bars[i-49:i+1]) and ema >= before
-        out[b.time+hours*HOUR] = View(atr, ema, up, (
-            b.close > max(x.high for x in bars[i-20:i]),
-            b.close > ema + 1.5*atr,
-            b.close > ema and up))
-    return out
+        ema += (bar.close-ema)*2/21
+        if i >= 50:
+            result[bar.time+hours*HOUR] = swing_view(bars[i-50:i+1],ema_pair=(before,ema))
+    return result
+
+
+def swing_view(bars: list[Bar], channel: int = 20, keltner_atr: float = 1.5,
+               ema_pair: tuple[float,float] | None = None) -> View:
+    """Fixed 51-bar lookback shared by the offline and streaming engines."""
+    if len(bars) < 51 or not 1 <= channel < 51:
+        raise ValueError("Swing indicators need 51 completed bars")
+    window = bars[-51:]
+    if ema_pair is None:
+        ema = mean(b.close for b in window[:20])
+        for bar in window[20:]:
+            before = ema
+            ema += (bar.close-ema)*2/21
+    else:
+        before, ema = ema_pair
+    b = window[-1]
+    atr = mean(max(y.high-y.low, abs(y.high-x.close), abs(y.low-x.close))
+               for x,y in zip(window[-15:-1],window[-14:]))
+    up = ema > mean(x.close for x in window[-50:]) and ema >= before
+    return View(atr, ema, up, (
+        b.close > max(x.high for x in window[-channel-1:-1]),
+        b.close > ema + keltner_atr*atr,
+        b.close > ema and up))
+
 
 
 @dataclass(frozen=True)
@@ -111,16 +127,20 @@ class Lot:
     cost: float
     stop: float
     target: float = math.inf
+    accumulated: float = 0.
+    gross_accumulated: float = 0.
 
 
 def replay(bars: list[Bar], plan: dict[datetime, Plan], name: str, bps: int,
-           start: datetime, end: datetime) -> dict:
+           start: datetime, end: datetime, *, capital: float = CAPITAL,
+           trail_atr: float = 3., allow_gaps: bool = False,
+           detail: bool = False) -> dict:
     data = [b for b in bars if start <= b.time < end]
-    if not data or len(data) != int((end-start)/HOUR):
+    if not data or (not allow_gaps and len(data) != int((end-start)/HOUR)):
         raise ValueError("Incomplete evaluation interval")
-    cash = peak = prev = CAPITAL
+    cash = peak = prev = capital
     worst = 0.
-    returns, pnls, gross = [], [], []
+    returns, pnls, gross, marks = [], [], [], []
     lots: list[Lot] = []
     fee = .001
     slip = bps/10000-fee
@@ -139,17 +159,26 @@ def replay(bars: list[Bar], plan: dict[datetime, Plan], name: str, bps: int,
             lots.append(Lot(budget/(price*buy_factor), price, budget, stop, target))
             cash -= budget
 
-    def sell(lot: Lot, price: float) -> None:
+    def sell(lot: Lot, price: float, share: float = 1.) -> None:
         nonlocal cash
-        proceeds = lot.amount*price*sell_factor
+        proceeds = lot.amount*share*price*sell_factor
         cash += proceeds
-        pnls.append(proceeds-lot.cost)
-        gross.append(lot.amount*(price-lot.entry))
-        lots.remove(lot)
+        if share < 1:
+            lot.accumulated += proceeds-lot.cost*share
+            lot.gross_accumulated += lot.amount*share*(price-lot.entry)
+            lot.amount *= 1-share
+            lot.cost *= 1-share
+            lot.target = math.inf
+        else:
+            pnls.append(lot.accumulated+proceeds-lot.cost)
+            gross.append(lot.gross_accumulated+lot.amount*(price-lot.entry))
+            lots.remove(lot)
 
     def mark(price: float) -> float:
         nonlocal peak, worst
         equity = cash+sum(x.amount*price*sell_factor for x in lots)
+        if detail:
+            marks.append(equity/capital)
         peak = max(peak,equity)
         worst = max(worst, 1-equity/peak)
         return equity
@@ -159,6 +188,7 @@ def replay(bars: list[Bar], plan: dict[datetime, Plan], name: str, bps: int,
         setup = plan.get(b.time)
         if setup:
             last_atr = setup.atr
+        opened_hybrid = False
         if name == "grid":
             if setup and setup.range_exit:
                 for x in lots[:]:
@@ -177,7 +207,9 @@ def replay(bars: list[Bar], plan: dict[datetime, Plan], name: str, bps: int,
             if name.startswith("spread") and setup and setup.exit and lots:
                 sell(lots[0],b.open)
             if setup and setup.enter and not lots and not setup.exit and setup.atr > 0:
-                buy(b.open,cash*.7,max(0,b.open-3*setup.atr))
+                opened_hybrid = name == "hybrid"
+                target = b.open+2*setup.atr if opened_hybrid else math.inf
+                buy(b.open,cash*.7,max(0,b.open-trail_atr*setup.atr),target)
                 high_water = b.open
         exits_before = len(pnls)
         for lot in lots[:]:
@@ -186,9 +218,9 @@ def replay(bars: list[Bar], plan: dict[datetime, Plan], name: str, bps: int,
             elif lot.stop and b.low <= lot.stop:
                 mark(lot.stop)
                 sell(lot,lot.stop)
-            elif b.high > lot.target*(1+penetration):
+            elif b.high > lot.target*(1+penetration) and not opened_hybrid:
                 mark(b.low)
-                sell(lot,lot.target)
+                sell(lot,lot.target,.5 if name == "hybrid" else 1.)
         # Do not fund bids with exits whose intrabar ordering relative to the low is unknown.
         if name == "grid" and not last and exits_before == len(pnls):
             for p,t,s in grid[:]:
@@ -205,15 +237,18 @@ def replay(bars: list[Bar], plan: dict[datetime, Plan], name: str, bps: int,
         mark(b.low)
         if lots and name not in ("grid","buy_hold") and not name.startswith("spread"):
             high_water = max(high_water,b.high)
-            lots[0].stop = max(lots[0].stop,high_water-3*last_atr)
+            lots[0].stop = max(lots[0].stop,high_water-trail_atr*last_atr)
         if last:
             for x in lots[:]:
                 sell(x,b.close)
         now = mark(b.close)
         returns.append(now/prev-1)
         prev = now
-    return {**metrics(returns,pnls,worst), "gross_expectancy_usdt": mean(gross) if gross else None,
-            "execution_drag_usdt": sum(gross)-sum(pnls), "ending_usdt": cash}
+    result = {**metrics(returns,pnls,worst), "gross_expectancy_usdt": mean(gross) if gross else None,
+              "execution_drag_usdt": sum(gross)-sum(pnls), "ending_usdt": cash}
+    if detail:
+        result.update(returns=returns, pnls=pnls, gross=gross, marks=marks)
+    return result
 
 
 def read(path: Path) -> list[Bar]:

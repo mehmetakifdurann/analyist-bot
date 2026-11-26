@@ -15,7 +15,7 @@ from spot_data import get_json
 from .executor import Filters, PaperExecutor
 from .notify import Notifier
 from .state import State
-from .strategy import DemoPullback, Observe, Strategy
+from .strategy import DailySwing, DemoPullback, Observe, Strategy
 from .stream import Book, History, SYMBOL, URL, events, stamp
 
 PUBLIC_FALLBACK = URL.replace("stream.binance.com:9443", "data-stream.binance.vision")
@@ -38,6 +38,7 @@ def filters() -> Filters:
 def run(feed: Iterable[Book | History], executor: PaperExecutor, strategy: Strategy,
         notifier: Notifier, max_books: int = 0) -> int:
     closed = None
+    trail = None
     update_id = -1
     seen = 0
     last_status = 0
@@ -45,6 +46,15 @@ def run(feed: Iterable[Book | History], executor: PaperExecutor, strategy: Strat
     latest_equity = latest_realized = None
     for event in feed:
         if isinstance(event, History):
+            if isinstance(strategy, DailySwing):
+                view = strategy.view(event.candles)
+                if view:
+                    trail = event.candles, D(str(view.atr))
+                    if event.warmup or event.candles[-1].time.hour == 23:
+                        context = strategy.view(event.candles,4)
+                        logging.info("%s closed daily signal=%s ATR=%.4f 4h_up=%s",
+                                     strategy.kind, view.flags[strategy.flag], view.atr,
+                                     context.up if context else None)
             if event.warmup:
                 closed = None
                 logging.info("warmup/backfill: %d closed candles through %s",
@@ -58,6 +68,9 @@ def run(feed: Iterable[Book | History], executor: PaperExecutor, strategy: Strat
         now = int(time.time())
         day = datetime.fromtimestamp(now,timezone.utc).date()
         equity, realized, changes = executor.on_book(event,now)
+        if trail is not None:
+            executor.trail(*trail)
+            trail = None
         if closed:
             opened = stamp(closed[-1])
             age = now - (opened//1000+3600)
@@ -83,16 +96,16 @@ def run(feed: Iterable[Book | History], executor: PaperExecutor, strategy: Strat
 
 def main() -> None:
     cli = argparse.ArgumentParser(description=__doc__)
-    cli.add_argument("--mode", choices=("paper","live"), default="paper")
-    cli.add_argument("--strategy", choices=("observe","demo-pullback"), default="observe")
+    cli.add_argument("--mode", choices=("paper","testnet","live"), default="paper")
+    cli.add_argument("--strategy", choices=("observe","demo-pullback","donchian-1d","keltner-1d"), default="observe")
     cli.add_argument("--db", type=Path, default=Path(os.getenv("PAPER_DB","paper.sqlite3")))
     cli.add_argument("--cash", type=D, default=D(os.getenv("PAPER_CASH","10000")))
     cli.add_argument("--daily-loss", type=D, default=D(os.getenv("PAPER_DAILY_LOSS","0.01")))
     cli.add_argument("--public-stream", action="store_true", help="Use Binance market-data-only WebSocket hostname")
     cli.add_argument("--max-books", type=int, default=0, help="Stop after this many book events (0 keeps running)")
     args = cli.parse_args()
-    if args.mode == "live":
-        cli.error("Real-account trading is unavailable. Use --mode paper for public live prices.")
+    if args.mode != "paper":
+        cli.error("Authenticated Binance modes are unavailable. Use --mode paper for public live prices.")
     if (not args.cash.is_finite() or args.cash <= 0 or not args.daily_loss.is_finite()
             or not 0 < args.daily_loss < 1 or args.max_books < 0):
         cli.error("Invalid paper settings")
@@ -101,10 +114,12 @@ def main() -> None:
     state = State(args.db,str(args.cash))
     executor = PaperExecutor(state,market_filters,args.daily_loss)
     notifier = Notifier(os.getenv("PAPER_WEBHOOK_URL"))
-    feed = events(PUBLIC_FALLBACK if args.public_stream else URL, notifier.publish)
+    demos = {"observe": Observe, "demo-pullback": DemoPullback}
+    strategy = demos[args.strategy]() if args.strategy in demos else DailySwing(args.strategy)
+    feed = events(PUBLIC_FALLBACK if args.public_stream else URL, notifier.publish,
+                  getattr(strategy,"warmup_hours",250))
     try:
-        run(feed,executor,Observe() if args.strategy == "observe" else DemoPullback(),
-            notifier,args.max_books)
+        run(feed,executor,strategy,notifier,args.max_books)
     except KeyboardInterrupt:
         logging.info("Paper engine stopped")
     finally:

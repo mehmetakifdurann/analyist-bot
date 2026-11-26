@@ -83,13 +83,17 @@ def backfill(after: int | None = None, limit: int = 250) -> list[Candle]:
     return result
 
 
-def events(url: str = URL, on_error: Callable[[dict], None] | None = None) -> Iterator[Book | History]:
-    candles: deque[Candle] = deque(maxlen=250)
+def events(url: str = URL, on_error: Callable[[dict], None] | None = None,
+           warmup_hours: int = 250) -> Iterator[Book | History]:
+    candles: deque[Candle] = deque(maxlen=warmup_hours)
     delay = 1.
     while True:
         try:
             with connect(url, open_timeout=10, close_timeout=3) as ws:
-                candles.extend(backfill(stamp(candles[-1]) if candles else None))
+                if candles:
+                    candles.extend(backfill(stamp(candles[-1])))
+                else:
+                    candles.extend(backfill(limit=warmup_hours))
                 yield History(tuple(candles), warmup=True)
                 while True:
                     event = decode(ws.recv(timeout=45))
