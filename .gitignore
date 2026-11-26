@@ -4,3 +4,8 @@ __pycache__/
 *.csv
 .env*
 result.json
+.env
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+!.env.example
