@@ -10,6 +10,17 @@ services:
     volumes:
       - paper-state:/state
     restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "python", "-m", "live", "--healthcheck"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 2m
 
 volumes:
   paper-state:

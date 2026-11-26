@@ -5,6 +5,7 @@ import argparse
 import json
 import logging
 import os
+import sqlite3
 import time
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal as D
@@ -12,8 +13,10 @@ from pathlib import Path
 from typing import Callable, Iterable
 
 from spot_data import get_json
-from .executor import Filters, PaperExecutor
-from .notify import Notifier, heartbeat
+from .adapters import ExecutionAdapter, PaperExecutionAdapter
+from .executor import Filters
+from .notify import Notifier, publish_heartbeat
+from .report import export_csv, healthy, performance, read
 from .state import State
 from .strategy import DailySwing, DemoPullback, Observe, Strategy
 from .stream import Book, History, SYMBOL, URL, events, stamp
@@ -35,7 +38,7 @@ def filters() -> Filters:
     return Filters(*values)
 
 
-def run(feed: Iterable[Book | History], executor: PaperExecutor, strategy: Strategy,
+def run(feed: Iterable[Book | History], executor: ExecutionAdapter, strategy: Strategy,
         notifier: Notifier, max_books: int = 0, *, clock: Callable[[], float] = time.time,
         on_equity: Callable[[D], None] | None = None) -> int:
     closed = None
@@ -82,13 +85,15 @@ def run(feed: Iterable[Book | History], executor: PaperExecutor, strategy: Strat
                 intent = strategy.on_close(closed,event)
                 if not isinstance(strategy, DailySwing):
                     last_signal = {"time": closed[-1].time.isoformat(), "entry": intent is not None}
-                executor.on_close(opened,intent,event,now)
+                signal = executor.submit(opened,intent,event,now)
+                if signal:
+                    notifier.publish(signal)
             closed = None
         if on_equity is not None:
             on_equity(equity)
         minute = now//60
         if minute != last_heartbeat_check:
-            heartbeat(executor.state, notifier, now, last_signal)
+            publish_heartbeat(notifier, executor.daily_heartbeat(now,last_signal))
             last_heartbeat_check = minute
         for change in changes:
             logging.info("paper event %s",json.dumps(change))
@@ -112,7 +117,26 @@ def main() -> None:
     cli.add_argument("--daily-loss", type=D, default=D(os.getenv("PAPER_DAILY_LOSS","0.01")))
     cli.add_argument("--public-stream", action="store_true", help="Use Binance market-data-only WebSocket hostname")
     cli.add_argument("--max-books", type=int, default=0, help="Stop after this many book events (0 keeps running)")
+    options = cli.add_mutually_exclusive_group()
+    options.add_argument("--report", action="store_true", help="Print paper ledger performance as JSON")
+    options.add_argument("--healthcheck", action="store_true", help="Check the SQLite ledger and recent market activity")
+    cli.add_argument("--export-csv", type=Path, help="Export ledger events to a new CSV file (requires --report)")
     args = cli.parse_args()
+    if args.export_csv and not args.report:
+        cli.error("--export-csv requires --report")
+    if args.report or args.healthcheck:
+        try:
+            if args.healthcheck:
+                if not healthy(args.db):
+                    cli.exit(1, "No recent paper market activity\n")
+                return
+            wallet, ledger = read(args.db)
+            if args.export_csv:
+                export_csv(args.export_csv,ledger)
+            print(json.dumps(performance(wallet,ledger),indent=2,ensure_ascii=False))
+            return
+        except (OSError, sqlite3.Error, ValueError, KeyError, ArithmeticError) as exc:
+            cli.exit(1, f"Paper ledger error: {exc}\n")
     if args.mode != "paper":
         cli.error("Authenticated Binance modes are unavailable. Use --mode paper for public live prices.")
     if (not args.cash.is_finite() or args.cash <= 0 or not args.daily_loss.is_finite()
@@ -121,8 +145,9 @@ def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     market_filters = filters()
     state = State(args.db,str(args.cash))
-    executor = PaperExecutor(state,market_filters,args.daily_loss)
-    notifier = Notifier(os.getenv("PAPER_WEBHOOK_URL"))
+    executor = PaperExecutionAdapter(state,market_filters,args.daily_loss)
+    notifier = Notifier(os.getenv("PAPER_WEBHOOK_URL"), os.getenv("TELEGRAM_BOT_TOKEN"),
+                        os.getenv("TELEGRAM_CHAT_ID"))
     demos = {"observe": Observe, "demo-pullback": DemoPullback}
     strategy = demos[args.strategy]() if args.strategy in demos else DailySwing(args.strategy)
     feed = events(PUBLIC_FALLBACK if args.public_stream else URL, notifier.publish,

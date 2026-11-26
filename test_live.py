@@ -163,7 +163,7 @@ class PaperParityRegressionTests(unittest.TestCase):
                             Book(1,D(100),D(101),D(100),D(100)),now)
             engine.on_book(Book(2,D(98),D("98.5"),D(100),D(100)),now+1)
             _, _, events = engine.on_book(Book(3,D(94),D(95),D(100),D(100)),now+2)
-            self.assertEqual(events, [])
+            self.assertEqual([e["kind"] for e in events], ["daily_limit"])
             with state.transaction() as wallet:
                 self.assertTrue(wallet["locked"])
                 self.assertIsNotNone(wallet["position"])
@@ -238,3 +238,86 @@ class PaperSettingsTests(unittest.TestCase):
         self.assertEqual(DailySwing("ema-1d").ttl_seconds,14400)
         self.assertEqual(DailySwing("ema-1d",ttl_seconds=3600).ttl_seconds,3600)
         self.assertEqual(DailySwing("keltner-1d").ttl_seconds,3600)
+
+
+class ObservabilityTests(unittest.TestCase):
+    def test_report_slippage_expiry_and_drawdown_survive_reopen(self):
+        from live.report import export_csv, healthy, performance, read
+
+        with tempfile.TemporaryDirectory() as root:
+            path = Path(root)/"paper.sqlite3"
+            state = State(path,"10000")
+            engine = PaperExecutor(state,Filters(D(".001"),D(".001"),D("5"),D(".01")))
+            t = 1_800_000_000
+            book = Book(1,D(100),D(101),D(100),D(100))
+            engine.on_book(book,t)
+            order = engine.submit(123,Intent(D(99),D(90),D(105)),book,t)
+            self.assertEqual(engine.order_status(order["id"]),"submitted")
+            engine.on_book(Book(2,D(98),D("98.5"),D(100),D(100)),t+1)
+            self.assertEqual(engine.order_status(order["id"]),"filled")
+            engine.on_book(Book(3,D(89),D(90),D(100),D(100)),t+2)
+            engine.on_book(book,t+86400)
+            pending = engine.submit(124,Intent(D(99),D(90),None),book,t+86400)
+            engine.on_book(book,t+90000)
+            self.assertEqual(engine.order_status(pending["id"]),"canceled")
+            self.assertEqual(engine.balance()["pending"],None)
+            state.db.close()
+            wallet, events_ = read(path)
+            result = performance(wallet,events_)
+            self.assertEqual((result["submitted"],result["filled"],result["expired"]),(2,1,1))
+            self.assertEqual(result["mean_paper_entry_slippage_bps"],-100)
+            self.assertEqual(result["mean_trigger_ask_vs_signal_bid_bps"],-150)
+            self.assertEqual(result["closed_trades"],1)
+            self.assertGreater(result["max_drawdown_pct"],0)
+            self.assertTrue(healthy(path, t+90001))
+            self.assertFalse(healthy(path, t+90200))
+            csv_path = Path(root)/"events.csv"
+            export_csv(csv_path,events_)
+            self.assertIn("trigger_ask",csv_path.read_text())
+            with self.assertRaises(FileExistsError):
+                export_csv(csv_path,events_)
+
+    def test_telegram_message_is_queued_and_blank_settings_are_disabled(self):
+        from live.notify import Notifier, message
+        event = {"kind":"filled","units":"0.3","fill_price":"3500"}
+        self.assertIn("Sanal dolum",message(event))
+        self.assertIsNone(Notifier(None,"123:example","").queue)
+        with patch("live.notify.Thread") as worker:
+            notifier = Notifier(None,"123:example","100")
+            notifier.publish(event)
+            self.assertEqual(notifier.queue.get_nowait(),event)
+            worker.return_value.start.assert_called_once()
+
+    def test_24_hour_disconnect_resyncs_book_and_closed_candle_without_replay(self):
+        from websockets.exceptions import ConnectionClosedError
+        from websockets.frames import Close
+
+        def quote(i):
+            return json.dumps({"stream":"paxgusdt@bookTicker",
+                               "data":dict(s="PAXGUSDT",u=i,b="100",a="101",B="100",A="100")})
+
+        def candle(i):
+            return json.dumps({"stream":"paxgusdt@kline_1h","data":{"s":"PAXGUSDT","k":{
+                "t":i*H,"T":(i+1)*H-1,"i":"1h","x":True,"o":"100","h":"101",
+                "l":"99","c":"100","v":"10"}}})
+
+        a,b = Mock(), Mock()
+        close = Close(1008,"24 hour connection lifetime")
+        a.recv.side_effect = [quote(8),ConnectionClosedError(close,None)]
+        b.recv.side_effect = [candle(4),quote(9),candle(5),quote(10)]
+        with patch("live.stream.connect",side_effect=[nullcontext(a),nullcontext(b)]), \
+             patch("live.stream.get_json",side_effect=[{"serverTime":4*H},[rest_row(3)],
+                                                        {"serverTime":5*H},[rest_row(4)]]), \
+             patch("live.stream.time.sleep"):
+            gen = events(warmup_hours=1)
+            self.assertTrue(next(gen).warmup)
+            self.assertEqual(next(gen).update,8)
+            recovered = next(gen)
+            self.assertTrue(recovered.warmup)
+            self.assertEqual(stamp(recovered.candles[-1]),4*H)
+            self.assertEqual(next(gen).update,9)
+            realtime = next(gen)
+            self.assertFalse(realtime.warmup)
+            self.assertEqual(stamp(realtime.candles[-1]),5*H)
+            self.assertEqual(next(gen).update,10)
+            gen.close()

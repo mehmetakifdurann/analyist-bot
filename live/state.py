@@ -16,7 +16,7 @@ class State:
         """)
         with self.db:
             self.db.execute("INSERT OR IGNORE INTO wallet VALUES (1,?)",
-                            (json.dumps(dict(cash=initial_cash, realized="0", pending=None, position=None,
+                            (json.dumps(dict(cash=initial_cash, initial_cash=initial_cash, realized="0", pending=None, position=None,
                                              day=None, start_equity=None, locked=False, candle=-1)),))
 
     @contextmanager

@@ -100,3 +100,22 @@ Varsayılan EMA 1D paper ayarı dört saat emir ömrü ve %25 pozisyon tavanıd�
 ```sh
 python3 paxg_edge_v3.py data/training/PAXGUSDT_1h.csv --ema-sensitivity > paper_runs/paxg-ema-sensitivity.json
 ```
+
+### Canlı paper raporu ve bildirimler
+
+```sh
+python -m live --report --db paper.sqlite3
+python -m live --report --db paper.sqlite3 --export-csv paper-events.csv
+docker compose exec paper python -m live --report
+docker compose exec paper python -m live --report --export-csv /state/paper-events.csv
+```
+
+Rapor SQLite'ı salt okunur açar ve ağ bağlantısı gerektirmez. Emir sayıları, dolum oranı, kapanan işlemler, Profit Factor, gerçekleşen PnL, toplam özsermaye değişimi, izlenen azami düşüş ve açık pozisyon JSON olarak yazılır. CSV olay defterini yeni bir dosyaya aktarır. Var olan dosyaların üzerine yazılmaz.
+
+`mean_paper_entry_slippage_bps` sanal dolum fiyatını sinyalde görülen bid ile karşılaştırır. `mean_trigger_ask_vs_signal_bid_bps` dolumu tetikleyen kotasyonu ayrı gösterir. Limit girişinin sanal dolumu limit fiyatından kaydedilir. Eski kayıtlarda kotasyon alanları eksik olabilir. Bu kayıtlar kayma hesabına katılmaz. Yeterli örnek olmadığında ilgili metrik `null` görünür. Önceden oluşturulmuş defterlerde azami düşüş takibi bu sürüme geçişten sonra başlar.
+
+`ExecutionAdapter` motorun yerel yürütme sınırıdır. Ana döngü bu arayüze sinyal ve kotasyon verir. Dahili `PaperExecutionAdapter` emir oluşturma, iptal, durum sorgulama ve bakiye okumayı yürütür. Motor yalnızca sanal defter adaptörünü çalıştırır.
+
+JSON webhook için `PAPER_WEBHOOK_URL`, Türkçe Telegram mesajları için `TELEGRAM_BOT_TOKEN` ve `TELEGRAM_CHAT_ID` ayarlanabilir. Telegram iki değer de doluyken etkinleşir. İşlem sinyali, sanal dolum, çıkış, günlük giriş kilidi ve günlük durum özeti gönderim kuyruğuna alınır. Ağ hatası motoru bekletmez. Kuyruk dolduğunda veya gönderim başarısız olduğunda mesaj düşebilir. [Telegram Bot API](https://core.telegram.org/bots/api#sendmessage)
+
+Compose, her biri en fazla 10 MB olan üç log dosyası tutar. Sağlık kontrolü SQLite'ın okunabildiğini ve son 180 saniyede kotasyon işlendiğini denetler. `unhealthy` durumu izleme içindir; Compose'un yeniden başlatma politikası süreç çıkışına uygulanır. WebSocket yaklaşık 23 saat 55 dakikada yenilenir. Bağlantı kurulduğunda eksik mumlar tamamlanır ve geçmiş kapanışlardan yeni emir açılmaz. [Binance Spot WebSocket belgeleri](https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams)

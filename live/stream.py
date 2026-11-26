@@ -19,6 +19,7 @@ from spot_data import INTERVAL_MS, Candle, get_json, validate_candle
 SYMBOL = "PAXGUSDT"
 URL = "wss://stream.binance.com:9443/stream?streams=paxgusdt@kline_1h/paxgusdt@bookTicker"
 D = Decimal
+ROTATE_AFTER = 23*3600 + 55*60
 
 
 @dataclass(frozen=True)
@@ -90,12 +91,13 @@ def events(url: str = URL, on_error: Callable[[dict], None] | None = None,
     while True:
         try:
             with connect(url, open_timeout=10, close_timeout=3) as ws:
+                rotate_at = time.monotonic()+ROTATE_AFTER
                 if candles:
                     candles.extend(backfill(stamp(candles[-1])))
                 else:
                     candles.extend(backfill(limit=warmup_hours))
                 yield History(tuple(candles), warmup=True)
-                while True:
+                while time.monotonic() < rotate_at:
                     event = decode(ws.recv(timeout=45))
                     if event is None:
                         continue
@@ -117,6 +119,7 @@ def events(url: str = URL, on_error: Callable[[dict], None] | None = None,
                     else:
                         candles.append(event)
                         yield History(tuple(candles), warmup=False)
+                logging.info("Rotating Binance Spot connection before its 24h limit")
         except (OSError, TimeoutError, WebSocketException, ValueError, KeyError, ArithmeticError) as exc:
             logging.warning("Market stream reconnect in %.1fs (%s)", delay, type(exc).__name__)
             if on_error:
