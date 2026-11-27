@@ -1,0 +1,2 @@
+event_id,kind,cash_usdt,entry_locked,equity_usdt,feed,last_closed_signal,position,realized_usdt,utc
+heartbeat:2026-11-26,heartbeat,197.46985570,False,197.46985570,connected,"{""time"": ""2026-11-25T00:00:00+00:00"", ""strategy"": ""ema-1d"", ""entry"": false}",,0,2026-11-26T17:24:54+00:00

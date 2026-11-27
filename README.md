@@ -131,20 +131,41 @@ Günlük EMA sinyalini gözlemlemek için pencerenin 00:00 UTC kapanışını ka
 ```sh
 PAPER_CASH_USDT="$(python3 -c 'from decimal import Decimal as D; from spot_data import get_json; q=get_json("ticker/bookTicker", symbol="USDTTRY"); print(D("9990")/D(q["askPrice"]))')" &&
 python3 -m live --mode paper --strategy ema-1d --duration-hours 10 \
-  --cash "$PAPER_CASH_USDT" --db paper_runs/soak-10h.sqlite3
+  --cash "$PAPER_CASH_USDT" --db paper_runs/soak-10h-next.sqlite3 \
+  --export-csv paper_runs/soak-10h-next.csv
 ```
 
-Yerel bağımlılıklar için `python3 -m pip install -r requirements.txt`. Süre dolduğunda sonuç terminale ve `paper_runs/soak-10h.json` dosyasına yazılır. Olay dökümü `paper_runs/soak-10h.csv` dosyasına çıkar. Canlı kotasyonlar, kapalı mumlar, kopuş/yeniden bağlanma, sağlık kontrolü ve günlük kararlar JSON'dadır. Günlük kapanışta alış sinyali yoksa TimeMachine ve emir fişi oluşmaz. Aynı süreli çalıştırmayı Docker'da ayırmak için:
+Yerel bağımlılıklar için `python3 -m pip install -r requirements.txt`. Süre dolduğunda sonuç terminale ve `paper_runs/soak-10h-next.json` dosyasına yazılır. Olay dökümü `paper_runs/soak-10h-next.csv` dosyasına çıkar. Canlı kotasyonlar, kapalı mumlar, kopuş/yeniden bağlanma, sağlık kontrolü ve günlük kararlar JSON'dadır. Günlük kapanışta alış sinyali yoksa TimeMachine ve emir fişi oluşmaz. Aynı süreli çalıştırmayı Docker'da ayırmak için:
 
 ```sh
 mkdir -p paper_runs
 docker compose build paper
-docker compose run -d --no-deps --name paxg-soak-10h --user "$(id -u):$(id -g)" \
-  -e PAPER_DB=/results/soak-10h.sqlite3 -v "$PWD/paper_runs:/results" paper \
+docker compose run -d --no-deps --name paxg-soak-10h-next --user "$(id -u):$(id -g)" \
+  -e PAPER_DB=/results/soak-10h-next.sqlite3 -v "$PWD/paper_runs:/results" paper \
   --mode paper --strategy ema-1d --duration-hours 10 \
   --cash "${PAPER_CASH_USDT:?yukarıdaki formülle hesapla}" \
-  --export-csv /results/soak-10h.csv
-docker logs -f paxg-soak-10h
+  --export-csv /results/soak-10h-next.csv
+docker logs -f paxg-soak-10h-next
 ```
 
 `BLOCK: existing_order_or_position` fişleri SQLite ve CSV'de kalır. Telegram/webhook kuyruğuna girmez.
+
+### Tamamlanan canlı paper testleri
+
+Her iki PAXG/USDT Spot denemesi 10.000 TL sanal sermayeyle başladı. USDT karşılığı açılış anındaki USDT/TRY satış kotasyonu ve %0,10 varsayılan dönüşüm ücretiyle hesaplandı. Gerçek emir gönderilmedi.
+
+| Deneme | Canlı kotasyon | Kapalı 1h mum | Kopuş / yeniden bağlanma | Emir / dolum | Kapanış sağlığı |
+| --- | ---: | ---: | ---: | ---: | --- |
+| 4 saat | 25.449 | 4 | 0 / 0 | 0 / 0 | `healthy` |
+| 10 saat | 650.236 | 10 | 1 / 1 | 0 / 0 | `healthy` |
+
+10 saatlik deneme 27 Kasım 2026'da 01:18:56–11:18:59 TSİ arasında çalıştı. 03:00 TSİ günlük kapanışında `ema-1d` alış sinyali üretmedi (`entry=false`). TimeMachine ve emir fişi bu nedenle oluşmadı. Kopuştan sonra eksik mum saptanmadı. Sanal bakiye **197,66521567 USDT** olarak kaldı. Gerçekleşen PnL **0 USDT**, azami düşüş **%0**. Dolum oranı, giriş kayması ve Profit Factor örnek olmadığı için JSON'da `null`. 10 saatlik CSV iki durum özeti içeriyor.
+
+- 10 saatlik deneme [JSON raporu](paper_runs/soak-10h.json), [CSV olay dökümü](paper_runs/soak-10h.csv) ve [açılış kur kaydı](paper_runs/soak-10h-funding.json).
+- 4 saatlik deneme [JSON raporu](paper_runs/soak-4h.json), [CSV olay dökümü](paper_runs/soak-4h.csv) ve [açılış kur kaydı](paper_runs/soak-4h-funding.json).
+
+`--report` çıktısındaki `initial_usdt`, açılış kaydı ile defteri eşleştirir. Aşağıdaki komut sanal bakiyeyi güncel USDT/TRY alış kotasyonuyla yeniden değerler. Tarihsel kapanış kuru raporlarda bulunmuyor.
+
+```sh
+python -m live.try_report paper_runs/soak-10h-funding.json < paper_runs/soak-10h.json
+```

@@ -1,0 +1,63 @@
+{
+  "submitted": 0,
+  "filled": 0,
+  "expired": 0,
+  "canceled_other": 0,
+  "fill_rate_pct": null,
+  "mean_paper_entry_slippage_bps": null,
+  "entry_slippage_samples": 0,
+  "mean_trigger_ask_vs_signal_bid_bps": null,
+  "closed_trades": 0,
+  "win_rate_pct": null,
+  "profit_factor": null,
+  "realized_pnl_usdt": 0.0,
+  "net_return_usdt": 0.0,
+  "initial_usdt": "197.66521567",
+  "cash_usdt": 197.66521567,
+  "equity_usdt": 197.66521567,
+  "max_drawdown_pct": 0.0,
+  "drawdown_tracking_since_utc_epoch": 1795731549,
+  "last_book_utc_epoch": 1795767480,
+  "open_position": null,
+  "pending_order": null,
+  "entry_locked": false,
+  "soak": {
+    "book_tickers": 650236,
+    "closed_1h_candles": 10,
+    "backfilled_candles": 0,
+    "warmup_candles": 4321,
+    "websocket_connections": 2,
+    "websocket_disconnects": 1,
+    "websocket_connect_failures": 0,
+    "websocket_rotations": 0,
+    "utc_daily_closes": 1,
+    "entry_signals": 0,
+    "last_signal": {
+      "time": "2026-11-26T00:00:00+00:00",
+      "strategy": "ema-1d",
+      "entry": false
+    },
+    "daily_decisions": [
+      {
+        "closed_at_utc": "2026-11-27T00:00:00+00:00",
+        "signal": {
+          "time": "2026-11-26T00:00:00+00:00",
+          "strategy": "ema-1d",
+          "entry": false
+        },
+        "fresh_quote": true,
+        "trade_ticket": null
+      }
+    ],
+    "websocket_reconnections": 1,
+    "market": "PAXGUSDT",
+    "strategy": "ema-1d",
+    "websocket_url": "wss://stream.binance.com:9443/stream?streams=paxgusdt@kline_1h/paxgusdt@bookTicker",
+    "start_utc": "2026-11-26T22:18:56.712135+00:00",
+    "end_utc": "2026-11-27T08:18:59.932279+00:00",
+    "requested_seconds": 36000.0,
+    "elapsed_seconds": 36003.026,
+    "completed": true,
+    "healthcheck": "healthy"
+  }
+}

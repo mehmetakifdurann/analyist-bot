@@ -1,0 +1,13 @@
+{
+  "time": "2026-11-26T17:24:40.554315+00:00",
+  "initial_try": "10000",
+  "initial_usdt": "197.46985570",
+  "assumed_conversion_fee": "0.001",
+  "quote": {
+    "symbol": "USDTTRY",
+    "bidPrice": "50.58000000",
+    "bidQty": "758176.00000000",
+    "askPrice": "50.59000000",
+    "askQty": "714871.00000000"
+  }
+}

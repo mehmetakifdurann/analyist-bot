@@ -6,7 +6,7 @@ services:
       - path: .env
         required: false
     environment:
-      PAPER_DB: /state/paper.sqlite3
+      PAPER_DB: ${PAPER_VOLUME_DB:-/state/paper.sqlite3}
     volumes:
       - paper-state:/state
     restart: unless-stopped

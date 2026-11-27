@@ -31,7 +31,7 @@ def performance(wallet: dict, events: list[dict]) -> dict:
     submitted = {e["event_id"]:e for e in events if e["kind"] == "submitted"}
     filled = [e for e in events if e["kind"] == "filled"]
     canceled = [e for e in events if e["kind"] == "canceled"]
-    pnls = [D(e["pnl"]) for e in events if e["kind"] in ("stop","target","daily_limit") and "pnl" in e]
+    pnls = [D(e["pnl"]) for e in events if e["kind"] in ("stop","target","daily_limit","replay_end") and "pnl" in e]
     expired = [e for e in canceled if e.get("reason") == "expired" or (
         "reason" not in e and e["id"] in submitted and e["time"] >= submitted[e["id"]]["expires"])]
     def entry_delta(field: str) -> tuple[float | None, int]:
@@ -55,7 +55,7 @@ def performance(wallet: dict, events: list[dict]) -> dict:
         "win_rate_pct":100*sum(p > 0 for p in pnls)/len(pnls) if pnls else None,
         "profit_factor":float(sum(p for p in pnls if p > 0)/losses) if losses else None,
         "realized_pnl_usdt":float(realized), "net_return_usdt":float(equity-initial),
-        "cash_usdt":float(cash), "equity_usdt":float(equity),
+        "initial_usdt":str(initial), "cash_usdt":float(cash), "equity_usdt":float(equity),
         "max_drawdown_pct":float(D(wallet["max_drawdown"])*100) if "max_drawdown" in wallet else None,
         "drawdown_tracking_since_utc_epoch":wallet.get("equity_tracking_since"),
         "last_book_utc_epoch":wallet.get("last_book_utc"),
