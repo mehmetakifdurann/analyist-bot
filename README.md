@@ -1,6 +1,17 @@
 # analyist-bot
 
-Offline Python research for hourly PAXG/USDT Spot candles. The repository contains a paper simulator, a historical comparison, a public market-data downloader and regression tests. It uses public Binance Spot data for real-time paper execution and has no real-account integration.
+**A real-time paper trading bot for PAXG/USDT on Binance Spot.** The bot streams live hourly candles and best bid/ask quotes over WebSocket, fills gaps over REST, and runs the `ema-1d` strategy by default. It evaluates entries at the UTC daily candle close and uses live quotes to simulate fills and manage positions. Orders, balances, and PnL are recorded in a local SQLite ledger.
+
+## Start the online paper bot
+
+```sh
+python3 -m pip install -r requirements.txt
+python3 -m live --mode paper --strategy ema-1d --db paper.sqlite3
+```
+
+The paper bot can run continuously while its host is online. It uses public market data and a virtual balance. For a persistent Docker deployment, see [Paper execution parity and Compose](#paper-execution-parity-and-compose).
+
+## Historical research and backtesting
 
 Use Python 3.10 or later in a system with the IANA timezone database.
 
@@ -18,7 +29,7 @@ python3 archive_data.py PAXGUSDT --end 2026-11-25
 python3 paxg_edge.py data/training/PAXGUSDT_1h.csv > result.json
 ```
 
-The [study report](PAXG_EDGE.md) and [walk-forward metrics](paper_runs/paxg-edge.json) cover passive entry simulation, order expiry, and cost stress. All configurations failed the online eligibility criteria.
+The [study report](PAXG_EDGE.md) and [walk-forward metrics](paper_runs/paxg-edge.json) cover passive entry simulation, order expiry, and cost stress. None of the configurations in this study met its criteria for use in the paper bot.
 
 ## PAXG V2 research and real-time paper trading
 
@@ -32,9 +43,6 @@ python3 -m unittest -v
 The [4H and 1D research report](PAXG_EDGE_V2.md) covers spread trading, grid trading, cost stress, and the buy-and-hold benchmark.
 
 ```sh
-# Run with no time limit.
-python3 -m live --mode paper --db paper.sqlite3
-
 # Exercise simulated orders with the sample strategy and a separate ledger.
 python3 -m live --mode paper --strategy demo-pullback --db demo.sqlite3
 
@@ -106,7 +114,7 @@ docker compose exec paper python -m live --report
 docker compose exec paper python -m live --report --export-csv /state/paper-events.csv
 ```
 
-The report opens SQLite in read-only mode and works offline. JSON includes order counts, fill rate, closed trades, profit factor, realized PnL, equity change, tracked maximum drawdown, and the open position. CSV export writes the event ledger to a new file. Existing files are preserved.
+The standalone report command opens the saved SQLite ledger in read-only mode and requires no network connection. JSON includes order counts, fill rate, closed trades, profit factor, realized PnL, equity change, tracked maximum drawdown, and the open position. CSV export writes the event ledger to a new file. Existing files are preserved.
 
 `mean_paper_entry_slippage_bps` compares the simulated fill price with the bid observed when the signal was generated. `mean_trigger_ask_vs_signal_bid_bps` separately measures how far the triggering ask was from that bid. The simulator records limit entries at the limit price. Legacy records without quotes are excluded from slippage calculations. Metrics without sufficient samples appear as `null`. Older ledgers begin tracking maximum drawdown once they run on a version that supports it.
 
