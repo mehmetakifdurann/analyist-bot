@@ -55,13 +55,15 @@ class DailySwing:
         if len(candles) < 51*period:
             return None
         t = candles[-1].time
-        key = t.replace(hour=0) - timedelta(days=t.hour != 23)
+        closed_hours = (t.hour + 1) // period * period
+        key = t.replace(hour=0) + timedelta(hours=closed_hours - period)
         if period == 24 and self._daily_cache and self._daily_cache[0] == key:
             return self._daily_cache[1]
         hourly = [Bar(c.time, *(float(v) for v in (c.open,c.high,c.low,c.close,c.volume)))
                   for c in candles]
         bars = resample(hourly,period)[-51:]
         result = (swing_view(bars) if len(bars) == 51 and
+                  bars[-1].time == key and
                   (bars[-1].time-bars[0].time).total_seconds() == 50*period*3600 else None)
         # Short warmups can be retried after a backfill on the same UTC day.
         if period == 24 and result is not None:

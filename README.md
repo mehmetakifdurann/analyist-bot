@@ -169,3 +169,11 @@ Her iki PAXG/USDT Spot denemesi 10.000 TL sanal sermayeyle başladı. USDT karş
 ```sh
 python -m live.try_report paper_runs/soak-10h-funding.json < paper_runs/soak-10h.json
 ```
+
+### EMA 1D sinyali neden oluşmadı?
+
+Motor 1 saatlik kapalı mumları UTC günlük mumlarına toplar. Giriş üç koşul birlikte sağlandığında değerlendirilir: günlük kapanış EMA20 üzerinde, EMA20 SMA50 üzerinde ve EMA20 önceki değerine eşit ya da onun üzerinde olmalıdır. `bookTicker` kotasyonları yeni bir günlük sinyal oluşturmaz.
+
+10 saatlik koşunun tek günlük kapanışı 27 Kasım 2026 saat 00:00 UTC idi. Binance Spot REST'ten alınan 1.224 saatlik mumun günlük OHLC değerleri Binance'ın 51 günlük mumuyla eşleşti. Kapanış **3.561,46**, EMA20 **3.736,28** (önceki değer **3.754,69**) ve SMA50 **3.958,98 USDT** idi. Üç giriş koşulu da sağlanmadı. Bu nedenle emir ve risk değerlendirmesi aşamasına geçilmedi. [Binance Spot kline belgeleri](https://developers.binance.com/en/docs/catalog/core-trading-spot-trading/api/rest-api/market)
+
+Yeni raporlar kapanış zamanını, EMA koşullarını ve gösterge değerlerini `last_signal` ve günlük kararlarda gösterir. Beklenen son mum eksikse karar `entry: null` ve `reason: missing_complete_daily_history` olarak görünür. Boş saatin verisi tamamlandığında günlük gösterge yeniden hesaplanabilir. Yukarıdaki tarihsel koşu raporları çalıştırıldıkları sürümün çıktılarıdır.

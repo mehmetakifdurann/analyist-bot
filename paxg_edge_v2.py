@@ -39,6 +39,9 @@ class View:
     ema: float
     up: bool
     flags: tuple[bool, bool, bool]
+    close: float
+    sma50: float
+    previous_ema: float
 
 
 def views(bars: list[Bar], hours: int) -> dict[datetime, View]:
@@ -70,11 +73,12 @@ def swing_view(bars: list[Bar], channel: int = 20, keltner_atr: float = 1.5,
     b = window[-1]
     atr = mean(max(y.high-y.low, abs(y.high-x.close), abs(y.low-x.close))
                for x,y in zip(window[-15:-1],window[-14:]))
-    up = ema > mean(x.close for x in window[-50:]) and ema >= before
+    sma50 = mean(x.close for x in window[-50:])
+    up = ema > sma50 and ema >= before
     return View(atr, ema, up, (
         b.close > max(x.high for x in window[-channel-1:-1]),
         b.close > ema + keltner_atr*atr,
-        b.close > ema and up))
+        b.close > ema and up), b.close, sma50, before)
 
 
 

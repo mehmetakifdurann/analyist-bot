@@ -124,6 +124,19 @@ class DailySwingTests(unittest.TestCase):
         self.assertIsNone(strategy.on_close(hours[:-1],book))
         self.assertIsNotNone(strategy.on_close(hours,book))
 
+    def test_missing_hour_cannot_relabel_previous_day_as_current(self):
+        from live.strategy import DailySwing
+        from live.stream import candle_at
+
+        hours = [candle_at(i*H, [100+i//24,101+i//24,99+i//24,100+i//24,1])
+                 for i in range(52*24)]
+        strategy = DailySwing("ema-1d")
+        book = Book(1,D(151),D(152),D(20),D(20))
+        self.assertTrue(strategy.view(hours[:-24]).flags[2])
+        missing_last_day_hour = hours[:-12]+hours[-11:]
+        self.assertIsNone(strategy.on_close(missing_last_day_hour,book))
+        self.assertIsNotNone(strategy.on_close(hours,book))
+
     def test_trailing_stop_is_persistent_and_never_moves_down(self):
         from datetime import datetime, timedelta, timezone
         from spot_data import Candle
@@ -476,10 +489,10 @@ class TenHourSoakTests(unittest.TestCase):
             self.assertEqual(report["soak"]["book_tickers"],1)
 
     def test_daily_close_includes_ticket_and_diagnostics_in_soak_report(self):
-        from types import SimpleNamespace
         from live.__main__ import run
         from live.strategy import DailySwing
         from live.stream import candle_at
+        from paxg_edge_v2 import View
 
         stamp_ms = 23*H
         c = candle_at(stamp_ms,rest_row(23)[1:6])
@@ -492,7 +505,8 @@ class TenHourSoakTests(unittest.TestCase):
         engine.daily_heartbeat.return_value = None
         stats = dict(warmup_candles=0,closed_1h_candles=0,backfilled_candles=0,utc_daily_closes=0,
                      entry_signals=0,daily_decisions=[])
-        with patch.object(strategy,"view",return_value=SimpleNamespace(flags=[False,False,True],atr=3,up=True)), \
+        view = View(3, 98, True, (False, False, True), 100, 96, 97)
+        with patch.object(strategy,"view",return_value=view), \
              patch("live.__main__.diagnose",return_value=ticket["timemachine"]):
             run([History((c,),False),book],engine,strategy,Mock(),clock=lambda:86400,
                 stats=stats,risk_overlay=True)
@@ -500,4 +514,7 @@ class TenHourSoakTests(unittest.TestCase):
         self.assertEqual(decision["closed_at_utc"],"1970-01-02T00:00:00+00:00")
         self.assertTrue(decision["fresh_quote"])
         self.assertTrue(decision["signal"]["entry"])
+        self.assertEqual(decision["signal"]["closed_at_utc"], decision["closed_at_utc"])
+        self.assertEqual(decision["signal"]["indicators"]["ema20"], 98)
+        self.assertTrue(all(decision["signal"]["checks"].values()))
         self.assertEqual(decision["trade_ticket"],ticket)

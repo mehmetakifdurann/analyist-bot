@@ -68,17 +68,33 @@ def run(feed: Iterable[Book | History], executor: ExecutionAdapter, strategy: St
                     stats["utc_daily_closes"] += sum(c.time.hour == 23 for c in recent)
             if isinstance(strategy, DailySwing):
                 view = strategy.view(event.candles)
-                last_signal = {"time": event.candles[-1].time.replace(hour=0).isoformat()
-                               if event.candles[-1].time.hour == 23 else
-                               (event.candles[-1].time.replace(hour=0)-timedelta(days=1)).isoformat(),
-                               "strategy": strategy.kind, "entry": view.flags[strategy.flag]} if view else None
+                last_hour = event.candles[-1].time
+                close_time = (last_hour+timedelta(hours=1)).replace(hour=0)
+                last_signal = {"time": (close_time-timedelta(days=1)).isoformat(),
+                               "closed_at_utc": close_time.isoformat(),
+                               "strategy": strategy.kind,
+                               "entry": view.flags[strategy.flag] if view else None}
+                if view is None:
+                    last_signal["reason"] = "missing_complete_daily_history"
+                elif strategy.kind == "ema-1d":
+                    last_signal["indicators"] = {
+                        "close": view.close, "ema20": view.ema,
+                        "prior_ema20": view.previous_ema, "sma50": view.sma50,
+                    }
+                    last_signal["checks"] = {
+                        "close_above_ema20": view.close > view.ema,
+                        "ema20_above_sma50": view.ema > view.sma50,
+                        "ema20_nondecreasing": view.ema >= view.previous_ema,
+                    }
                 if view:
                     trail = event.candles, D(str(view.atr))
                     if event.warmup or event.candles[-1].time.hour == 23:
                         context = strategy.view(event.candles,4)
-                        logging.info("%s closed daily signal=%s ATR=%.4f 4h_up=%s",
-                                     strategy.kind, view.flags[strategy.flag], view.atr,
+                        logging.info("closed daily signal=%s ATR=%.4f 4h_up=%s",
+                                     json.dumps(last_signal), view.atr,
                                      context.up if context else None)
+                elif event.warmup or last_hour.hour == 23:
+                    logging.warning("closed daily signal=%s", json.dumps(last_signal))
             if event.warmup:
                 closed = None
                 logging.info("warmup/backfill: %d closed candles through %s",
